@@ -1,0 +1,53 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
+		},{
+			"path": "pages/competition/competition",
+			"style": {
+				"navigationBarTitleText": "赛事"
+			}
+		},{
+			"path": "pages/communication/communication",
+			"style": {
+				"navigationBarTitleText": "交流"
+			}
+		},{
+			"path": "pages/mine/mine",
+			"style": {
+				"navigationBarTitleText": "我的"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "学科竞赛系统",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"color": "#878585",
+		"selectedColor": "#F7C400",
+		"borderStyle": "white",
+		"backgroundColor": "#F8F8F8",
+		"list": [{
+			"pagePath": "pages/competition/competition",
+			"iconPath": "static/image/competition.png",
+			"selectedIconPath": "static/image/competition_sel.png",
+			"text":"赛事"
+		}, {
+			"pagePath": "pages/communication/communication",
+			"iconPath": "static/image/communication.png",
+			"selectedIconPath": "static/image/communication_sel.png",
+			"text":"交流"
+		}, {
+			"pagePath": "pages/mine/mine",
+			"iconPath": "static/image/mine.png",
+			"selectedIconPath": "static/image/mine_sel.png",
+			"text":"我的"
+		}]
+	}
+}
