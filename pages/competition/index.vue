@@ -1,7 +1,7 @@
 <template>
 	<view class="competition">
 		<view class="comp-box">
-			<u-sticky>
+			<u-sticky :enable="enable">
 				<view class="sticky">
 					<u-search placeholder="请输入竞赛名称" v-model="competitionKW" @search="searchCompetition" @custom="searchCompetition"></u-search>
 					<view class="cb-radio">
@@ -40,6 +40,7 @@
 			return {
 				showCategoryList: false,
 				scrollTop: 0,
+				enable: true,
 				subCateObj: {
 					label: '全部',
 					value: -1
@@ -75,6 +76,13 @@
 					}
 				]
 			}
+		},
+		// 在对应的show和hide页面生命周期中打开或关闭监听
+		onShow() {
+			this.enable= true
+		},
+		onHide() {
+			this.enable= false
 		},
 		onPageScroll(e) {
 			this.scrollTop = e.scrollTop;

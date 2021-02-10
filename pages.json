@@ -3,31 +3,75 @@
 		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
 	},
 	"pages": [
+		// {
+		//     "path" : "components/articleWriter/articleWriter"
+		// },
+		// {
+		// 	"path" : "pages/competition/components/articleReader"
+		// },
 		{
-			"path": "pages/competition/competition",
+		    "path" : "pages/competition/download",
+		    "style" :
+		    {
+		        "navigationBarTitleText": "附件下载"
+		    }
+		},
+		{
+		    "path" : "pages/competition/notify",
+		    "style" :{
+		        "navigationBarTitleText": "赛事通知"
+		    }
+		},{
+			"path": "pages/competition/index",
 			"style": {
 				"navigationBarTitleText": "首页"
 			}
-		},
-		{
+		},{
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "登录"
 			}
 		},{
-			"path": "pages/communication/communication",
+			"path": "pages/communication/index",
 			"style": {
 				"navigationBarTitleText": "交流"
 			}
 		},{
-			"path": "pages/mine/mine",
+			"path": "pages/mine/index",
 			"style": {
 				"navigationBarTitleText": "我的"
 			}
-		}
-	    ,{
+		},{
             "path" : "pages/competition/components/SingleCompetition",
             "style" : {
+                "navigationBarTitleText": ""
+            }
+        },{
+            "path" : "pages/competition/apply",
+            "style" :
+            {
+                "navigationBarTitleText": "去报名"
+            }
+        },{
+            "path" : "pages/competition/history",
+            "style" :
+            {
+                "navigationBarTitleText": "历年风采"
+            } 
+        }
+        ,{
+            "path" : "components/articleWriter/articleWriter",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "components/articleReader/articleReader",
+            "style" :                                                                                    
+            {
                 "navigationBarTitleText": "",
                 "enablePullDownRefresh": false
             }
@@ -46,17 +90,17 @@
 		"borderStyle": "white",
 		"backgroundColor": "#F8F8F8",
 		"list": [{
-			"pagePath": "pages/competition/competition",
+			"pagePath": "pages/competition/index",
 			"iconPath": "static/tab/competition.png",
 			"selectedIconPath": "static/tab/competition_sel.png",
 			"text":"赛事"
 		}, {
-			"pagePath": "pages/communication/communication",
+			"pagePath": "pages/communication/index",
 			"iconPath": "static/tab/communication.png",
 			"selectedIconPath": "static/tab/communication_sel.png",
 			"text":"交流"
 		}, {
-			"pagePath": "pages/mine/mine",
+			"pagePath": "pages/mine/index",
 			"iconPath": "static/tab/mine.png",
 			"selectedIconPath": "static/tab/mine_sel.png",
 			"text":"我的"

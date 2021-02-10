@@ -16,20 +16,20 @@
 		</view>
 		<view class="sc-btns" v-if="hasBtns && showDetailBtns">
 			<u-grid :col="4">
-				<u-grid-item>
+				<u-grid-item @click="goPage('notify')">
 					<!-- <u-badge count="9" :offset="[20, 20]"></u-badge> -->
 					<u-icon name="bell"></u-icon>
 					<view class="grid-text">赛事通知</view>
 				</u-grid-item>
-				<u-grid-item>
+				<u-grid-item @click="goPage('download')">
 					<u-icon name="download" class=""></u-icon>
 					<view class="grid-text">附件下载</view>
 				</u-grid-item>
-				<u-grid-item>
+				<u-grid-item @click="goPage('apply')">
 					<u-icon name="hourglass-half-fill"></u-icon>
 					<view class="grid-text">去报名</view>
 				</u-grid-item>
-				<u-grid-item>
+				<u-grid-item @click="goPage('history')">
 					<u-icon name="clock"></u-icon>
 					<view class="grid-text">历年风采</view>
 				</u-grid-item>
@@ -69,7 +69,12 @@
 			}
 		},
 		methods: {
-			
+			goPage(pageName) {
+				
+				uni.navigateTo({
+					url: './' + pageName + '?id=' + this.cardInfo.id
+				})
+			}
 		}
 	}
 </script>
