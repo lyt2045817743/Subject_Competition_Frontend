@@ -10,6 +10,13 @@
 		// 	"path" : "pages/competition/components/articleReader"
 		// },
 		{
+			"path": "pages/mine/index",
+			"style": {
+				"navigationBarTitleText": "我的",
+				"navigationStyle": "custom"
+			}
+		},
+		{
 		    "path" : "pages/competition/download",
 		    "style" :
 		    {
@@ -24,7 +31,8 @@
 		},{
 			"path": "pages/competition/index",
 			"style": {
-				"navigationBarTitleText": "首页"
+				"navigationBarTitleText": "首页",
+				"navigationStyle": "custom"
 			}
 		},{
 			"path": "pages/index/index",
@@ -35,11 +43,6 @@
 			"path": "pages/communication/index",
 			"style": {
 				"navigationBarTitleText": "交流"
-			}
-		},{
-			"path": "pages/mine/index",
-			"style": {
-				"navigationBarTitleText": "我的"
 			}
 		},{
             "path" : "pages/competition/components/SingleCompetition",
@@ -77,6 +80,24 @@
             }
             
         }
+        ,{
+            "path" : "pages/mine/components/basicInfo",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/userManage/index",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
@@ -86,7 +107,7 @@
 	},
 	"tabBar": {
 		"color": "#878585",
-		"selectedColor": "#F7C400",
+		"selectedColor": "#39CCCC",
 		"borderStyle": "white",
 		"backgroundColor": "#F8F8F8",
 		"list": [{

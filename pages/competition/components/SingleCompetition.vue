@@ -72,6 +72,7 @@
 			goPage(pageName) {
 				
 				uni.navigateTo({
+					// pages/competition/
 					url: './' + pageName + '?id=' + this.cardInfo.id
 				})
 			}
@@ -87,15 +88,17 @@
 	}
 	.single-com__card {
 		.sc-info{
-			border: 1px solid #f2f2f2;
+			// border: 1px solid #f2f2f2;
 			box-shadow: 0px 1px 0px 0px #f2f2f2;
-			padding: 17.5upx;
+			padding: 25upx;
 			margin-top: 25upx;
+			border-radius: 15upx;
+			border: 2.5upx solid rgba(0, 0, 0, 0.1);
 			.si-basic {
 				display: flex;
 				align-items: center;
 				.sib-text {
-					margin-left: 12.5upx;
+					margin-left: 25upx;
 					.sibt-firstline {
 						display: flex;
 						.sif-name {
@@ -112,12 +115,12 @@
 					}
 					.sibt-single {
 						font-size: 27.5upx;
-						margin-top: 7.5upx;
+						margin-top: 12.5upx;
 					}
 				}
 			}
 			.deadline {
-				margin-top: 7.5upx;
+				margin-top: 12.5upx;
 			}
 		}
 		.sc-btns {

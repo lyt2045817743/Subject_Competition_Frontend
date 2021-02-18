@@ -1,13 +1,15 @@
 <template>
 	<view class="competition">
+		<u-navbar title="首页" :is-back="false" title-color="#ffffff" :background="{background: '#39cccc'}" :title-bold="true"></u-navbar>
 		<view class="comp-box">
 			<u-sticky :enable="enable">
 				<view class="sticky">
 					<u-search placeholder="请输入竞赛名称" v-model="competitionKW" @search="searchCompetition" @custom="searchCompetition"></u-search>
+					<u-gap height="25" bg-color="#F0F5F8"></u-gap>
 					<view class="cb-radio">
-						<text class="cbr-cate__text">{{subCateObj.label}} ({{curCateSum}})</text>
-						<text class="cbr-cate__text">我参与的</text>
-						<text class="cbr-cate__text">我关注的</text>
+						<text :class="['cbr-cate__text', currentCate === 'all' ? 'active' : '']" @click="tabHandle('all')">{{subCateObj.label}} ({{curCateSum}})</text>
+						<text :class="['cbr-cate__text', currentCate === 'join' ? 'active' : '']" @click="tabHandle('join')">我参与的</text>
+						<text :class="['cbr-cate__text', currentCate === 'concern' ? 'active' : '']" @click="tabHandle('concern')">我关注的</text>
 						<view class="cbr-more" @click="showCategoryList = true">
 							更多分类
 							<u-icon name="arrow-down" />
@@ -47,6 +49,7 @@
 				},
 				status: 'loadmore',
 				competitionKW: '',
+				currentCate: 'all',
 				categoryList, // 从这里开始的变量为后端获取
 				curCateSum: 10,
 				compeInfoList: [
@@ -98,6 +101,12 @@
 			},
 			loadmoreCom() {
 				this.compeInfoList = this.compeInfoList.concat(this.compeInfoList);
+			},
+			
+			// 当切换赛事分类tab时
+			tabHandle(tabName) {
+				this.currentCate = tabName;
+				// ...
 			}
 		}
 	}
@@ -105,19 +114,22 @@
 
 <style lang="scss" scoped>
 	.competition {
-		padding: 0 40upx 35upx;
+		padding-bottom: 35upx;
 		.comp-box {
 			.sticky {
 				padding-top: 35upx;
 				background: #fff;
 				.cb-radio {
-					padding: 25upx 0;
+					padding: 25upx;
 					display: flex;
 					justify-content: space-between;
 					align-items: center;
 					.cbr-cate__text {
 						font-size: 30upx;
-						font-weight: bold;
+						&.active {
+							color: #39CCCC;
+							font-weight: bold;
+						}
 					}
 					.cbr-more {
 						
@@ -131,8 +143,13 @@
 				position: relative;
 				.cbl-hasdata {
 					margin-top: -25upx;
+					padding: 0 25upx;
 				}
 			}
 		}
+	}
+	/deep/ .u-search {
+		padding: 0 25upx 25upx;
+		width: 100%;
 	}
 </style>
