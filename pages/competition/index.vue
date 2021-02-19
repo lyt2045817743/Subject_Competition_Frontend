@@ -35,6 +35,7 @@
 <script>
 	import categoryList from './tempData/categoryList.js'
 	import SingleCompetition from './components/SingleCompetition'
+	import compeInfoList from './tempData/compeInfoList.js'
 	const { log } = console;
 	export default {
 		components:{SingleCompetition},
@@ -52,44 +53,7 @@
 				currentCate: 'all',
 				categoryList, // 从这里开始的变量为后端获取
 				curCateSum: 10,
-				compeInfoList: [
-					{
-						id: 0,
-						comName: '全国大学生机器人大赛',
-						pubInsitName: '信息与计算机工程学院',
-						institution: '全国电子商务产教融合创新联盟',
-						pubTimeStr: '2021.02.08',
-						curStageNum: 0,
-						deadline: 2
-					},
-					{
-						id: 1,
-						comName: '全国大学生机器人大赛',
-						pubInsitName: '信息与计算机工程学院',
-						institution: '全国电子商务产教融合创新联盟',
-						pubTimeStr: '2021.02.08',
-						curStageNum: 0,
-						deadline: 1
-					},
-					{
-						id: 2,
-						comName: '全国大学生机器人大赛',
-						pubInsitName: '信息与计算机工程学院',
-						institution: '全国电子商务产教融合创新联盟',
-						pubTimeStr: '2021.02.08',
-						curStageNum: 1,
-						deadline: 1
-					},
-					{
-						id: 3,
-						comName: '全国大学生机器人大赛',
-						pubInsitName: '信息与计算机工程学院',
-						institution: '全国电子商务产教融合创新联盟',
-						pubTimeStr: '2021.02.08',
-						curStageNum: 2,
-						deadline: 1
-					}
-				]
+				compeInfoList,
 			}
 		},
 		// 在对应的show和hide页面生命周期中打开或关闭监听

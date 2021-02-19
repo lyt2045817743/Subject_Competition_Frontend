@@ -1,5 +1,5 @@
 import { addCompetitionUrl } from './api.js'
-import request from '../utils/request.js'
+import { request } from './request.js'
 
 function addCompFun(data) {
 	return request(addCompetitionUrl, {
