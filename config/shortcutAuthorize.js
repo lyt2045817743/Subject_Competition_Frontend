@@ -1,9 +1,8 @@
 const managerShortcut = [
-	
 	{
 		label: '赛事编辑',
 		icon: 'edit-pen',
-		path: '../userManage/index'
+		path: '../competitionManage/index'
 	},
 	{
 		label: '信息收集',
@@ -20,6 +19,16 @@ const managerShortcut = [
 		icon: 'man-add',
 		path: '../userManage/index'
 	},
+	{
+		label: '单位管理',
+		icon: 'grid',
+		path: '../userManage/index'
+	},
+	{
+		label: '历年数据',
+		icon: 'calendar',
+		path: '../userManage/index'
+	}
 ]
 
 export {

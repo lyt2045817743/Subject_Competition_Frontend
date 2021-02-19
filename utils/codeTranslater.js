@@ -12,6 +12,16 @@ class codeTranslater{
 			return '';
 		}
 	}
+	
+	returnCode(label) {
+		const result = this.model.find( item => item.label === label );
+		if(result) {
+			return result.code;
+		} else {
+			console.log('label有误');
+			return '';
+		}
+	}
 }
 
 export default codeTranslater;

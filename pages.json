@@ -64,33 +64,50 @@
         }
         ,{
             "path" : "components/articleWriter/articleWriter",
-            "style" :                                                                                    
-            {
+            "style" : {
                 "navigationBarTitleText": "",
                 "enablePullDownRefresh": false
             }
-            
         }
         ,{
             "path" : "components/articleReader/articleReader",
-            "style" :                                                                                    
-            {
+            "style" : {
                 "navigationBarTitleText": "",
                 "enablePullDownRefresh": false
             }
-            
-        }
-        ,{
+        },{
             "path" : "pages/mine/components/basicInfo",
-            "style" :                                                                                    
-            {
+            "style" : {
                 "navigationBarTitleText": "",
                 "enablePullDownRefresh": false
             }
-            
         }
         ,{
             "path" : "pages/userManage/index",
+            "style" : {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+        }
+        ,{
+            "path" : "pages/competitionManage/basicInfo",
+            "style" : 
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+        }
+        ,{
+            "path" : "pages/competitionManage/index",
+            "style" : 
+            {
+                "navigationBarTitleText": "赛事编辑",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/competitionManage/competitionEdit",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",

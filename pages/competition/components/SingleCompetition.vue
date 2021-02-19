@@ -1,21 +1,22 @@
 <template>
 	<view class="single-com__card">
-		<view class="sc-info" @click="showDetailBtns = !showDetailBtns">
+		<view class="sc-info" @click="cardClickHandle">
 			<view class="si-basic">
-				<u-avatar :src="cardInfo.headUrl" size="large" />
+				<!-- <u-avatar :src="cardInfo.headUrl" size="large" /> -->
 				<view class="sib-text">
 					<view class="sibt-firstline">
 						<text class="sif-name">{{cardInfo.comName}}</text>
 						<text class="sif-label">{{curStage}}</text>
 					</view>
+					<view class="sibt-single">主办单位：{{cardInfo.institution}}</view>
 					<view class="sibt-single">发布单位：{{cardInfo.pubInsitName}}</view>
 					<view class="sibt-single">发布时间：{{cardInfo.pubTimeStr}}</view>
 				</view>
 			</view>
-			<view class="deadline" v-if="cardInfo.deadlineObj">{{cardInfo.deadlineObj.label}}：{{cardInfo.deadlineObj.time}}</view>
+			<view :class="['deadline', cardInfo.deadline < 2 ? 'active' : '']" v-if="curStage === '报名中' && cardInfo.deadline">报名倒计时：{{cardInfo.deadline}}天</view>
 		</view>
 		<view class="sc-btns" v-if="hasBtns && showDetailBtns">
-			<u-grid :col="4">
+			<u-grid :col="3">
 				<u-grid-item @click="goPage('notify')">
 					<!-- <u-badge count="9" :offset="[20, 20]"></u-badge> -->
 					<u-icon name="bell"></u-icon>
@@ -29,10 +30,10 @@
 					<u-icon name="hourglass-half-fill"></u-icon>
 					<view class="grid-text">去报名</view>
 				</u-grid-item>
-				<u-grid-item @click="goPage('history')">
+				<!-- <u-grid-item @click="goPage('history')">
 					<u-icon name="clock"></u-icon>
 					<view class="grid-text">历年风采</view>
-				</u-grid-item>
+				</u-grid-item> -->
 			</u-grid>
 		</view>
 	</view>
@@ -75,6 +76,15 @@
 					// pages/competition/
 					url: './' + pageName + '?id=' + this.cardInfo.id
 				})
+			},
+			cardClickHandle() {
+				if(this.hasBtns) {
+					this.showDetailBtns = !this.showDetailBtns
+				} else {
+					uni.navigateTo({
+						url: './competitionEdit'
+					})
+				}
 			}
 		}
 	}
@@ -87,6 +97,7 @@
 		color: $u-type-info;
 	}
 	.single-com__card {
+		position: relative;
 		.sc-info{
 			// border: 1px solid #f2f2f2;
 			box-shadow: 0px 1px 0px 0px #f2f2f2;
@@ -98,12 +109,16 @@
 				display: flex;
 				align-items: center;
 				.sib-text {
-					margin-left: 25upx;
+					// margin-left: 25upx;
+					width: 100%;
 					.sibt-firstline {
 						display: flex;
 						.sif-name {
 							font-size: 35upx;
 							font-weight: bold;
+							overflow: hidden;
+							text-overflow: ellipsis;
+							white-space: nowrap;
 						}
 						.sif-label {
 							display: inline-block;
@@ -111,6 +126,9 @@
 							border: 1px dashed #d9d9d9;
 							margin-left: 12.5upx;
 							background: #fafad1;
+							position: absolute;
+							right: 0;
+							top: 0;
 						}
 					}
 					.sibt-single {
@@ -120,7 +138,16 @@
 				}
 			}
 			.deadline {
-				margin-top: 12.5upx;
+				// margin-top: 12.5upx;
+				padding: 5upx;
+				position: absolute;
+				color: #4da6ff;
+				right: 5upx;
+				bottom: 0;
+				text-align: center;
+				&.active {
+					color: red;
+				}
 			}
 		}
 		.sc-btns {
