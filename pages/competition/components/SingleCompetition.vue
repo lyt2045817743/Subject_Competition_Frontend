@@ -5,12 +5,12 @@
 				<!-- <u-avatar :src="cardInfo.headUrl" size="large" /> -->
 				<view class="sib-text">
 					<view class="sibt-firstline">
-						<text class="sif-name">{{cardInfo.comName}}</text>
+						<text class="sif-name">{{cardInfo.name}}</text>
 						<text class="sif-label">{{curStage}}</text>
 					</view>
 					<view class="sibt-single">主办单位：{{cardInfo.institution}}</view>
-					<view class="sibt-single">发布单位：{{cardInfo.pubInsitName}}</view>
-					<view class="sibt-single">发布时间：{{cardInfo.pubTimeStr}}</view>
+					<view class="sibt-single">发布单位：{{cardInfo.currentInsti}}</view>
+					<view class="sibt-single">发布时间：{{createTime}}</view>
 				</view>
 			</view>
 			<view :class="['deadline', cardInfo.deadline < 2 ? 'active' : '']" v-if="curStage === '报名中' && cardInfo.deadline">报名倒计时：{{cardInfo.deadline}}天</view>
@@ -41,12 +41,14 @@
 
 <script>
 	import codeTranslater from '../../../utils/codeTranslater'
+	import calendarComputer from '../../../utils/calendarComputer.js'
 	import { comStageModel } from '../../../models/competition.d'
 	export default {
 		data() {
 			return {
 				showDetailBtns: false,
-				curStage: ''
+				curStage: '',
+				createTime: ''
 			}
 		},
 		props: {
@@ -63,7 +65,8 @@
 			cardInfo: {
 				handler(val) {
 					if(val) {
-						this.curStage = new codeTranslater(comStageModel).transCode(val.curStageNum)
+						this.curStage = new codeTranslater(comStageModel).transCode(val.curStageNum);
+						this.createTime = new calendarComputer(val.createTime).switchTimeFormat()
 					};
 				},
 				immediate: true

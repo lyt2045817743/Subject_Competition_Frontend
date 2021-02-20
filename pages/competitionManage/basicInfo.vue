@@ -21,7 +21,7 @@
 					</u-radio>
 				</u-radio-group>
 			</u-form-item>
-			<view class="deadline-date" v-if="deadlineDate">报名截止时间：{{deadlineDate}}</view>
+			<view class="deadline-date" v-if="deadlineDate && radio === '报名中'">报名截止时间：{{deadlineDate}}</view>
 			<u-calendar v-model="showCal" mode="date" :min-date="minDate" :max-date="maxDate" @change="deadlineOfApply"></u-calendar>
 			<u-button @click="showCal = true" v-if="radio === '报名中'">设置报名截止日期</u-button>
 		</u-form>
@@ -33,6 +33,7 @@
 			<u-button type="primary" shape="circle" size="medium" @click="beforeSubmit">提交</u-button>
 		</view>
 		<u-modal v-model="modalShow" @confirm="submitCompInfo()" :show-cancel-button="true" content="未设置报名截止日期,是否继续？"></u-modal>
+		<u-toast ref="uToast" />
 	</view>
 </template>
 
@@ -76,7 +77,7 @@
 					]
 				},
 				showCal: false,
-				currentInsti: '信息与计算机工程学院', // 从本地存储获取
+				currentInsti: '信息与计算机工程学院', //... 从本地存储获取
 				radioList: [
 					{
 						name: '报名中',
@@ -124,9 +125,21 @@
 			
 			submitCompInfo() {
 				const curStageNum = new codeTranslater(comStageModel).returnCode(this.radio)
-				const formData = {...this.form, deadlineDate: this.deadlineDate, curStageNum}
+				const createUser = '超级管理员'; //...
+				const deadlineDate = new calendarComputer(this.deadlineDate).stringToDate()
+				const formData = {...this.form, deadlineDate, curStageNum, currentInsti: this.currentInsti, createTime: new Date(), createUser}
 				console.log(formData)
-				addCompFun(formData)
+				addCompFun(formData).then( data => {
+					this.$refs['uToast'].show({
+						title: data.msg,
+						type: 'success',
+					})
+					setTimeout(function(){
+						uni.navigateBack({
+							delta: 1
+						})
+					}, 500)
+				})
 			},
 			
 			beforeSubmit() {
@@ -145,7 +158,7 @@
 				});
 			},
 			
-			// 未
+			//...
 			temporarySave() {
 				
 			}

@@ -7,7 +7,8 @@ export function request(url, options) {
       ...options
     })
 	.then((res)=>{
-		res[1].statusCode === 200 ? resolve(res.data) : reject(res)
+		console.log(res)
+		// res[1].statusCode === 200 ? resolve(res[1].data) : reject(res)
 	})
 	.catch((err)=>{
 		console.log(err);

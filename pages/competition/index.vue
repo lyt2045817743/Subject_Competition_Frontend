@@ -82,7 +82,7 @@
 			// 当切换赛事分类tab时
 			tabHandle(tabName) {
 				this.currentCate = tabName;
-				// ...
+				//...
 			}
 		}
 	}

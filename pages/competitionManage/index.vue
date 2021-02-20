@@ -2,9 +2,9 @@
 	<view class="content">
 		<view class="firstline">
 			<text class="title">赛事列表</text>
-			<text class="newbtn" @click="addComp">
+			<view class="newbtn" @click="addComp">
 				<u-icon name="plus-circle" />新建
-			</text>
+			</view>
 		</view>
 		<view class="search">
 			<u-search placeholder="请输入竞赛名称" v-model="competitionKW" @search="searchCompetition" @custom="searchCompetition"></u-search>
@@ -21,17 +21,17 @@
 
 <script>
 	import SingleCompetition from '../competition/components/SingleCompetition'
-	import compeInfoList from '../competition/tempData/compeInfoList.js'
-	console.log(compeInfoList,'............')
+	// import compeInfoList from '../competition/tempData/compeInfoList.js'
+	import { queryCompListFun } from '../../api/competition.js'
 	export default {
 		components: { SingleCompetition },
 		data() {
 			return {
 				status: 'loadmore',
 				competitionKW: '',
-				compeInfoList,
+				compeInfoList: [],
 				loadmoreCom() {
-					this.compeInfoList = this.compeInfoList.concat(this.compeInfoList);
+					// this.compeInfoList = this.compeInfoList.concat(this.compeInfoList);
 				},
 			}
 		},
@@ -41,6 +41,12 @@
 					url: './basicInfo'
 				})
 			}
+		},
+		onLoad() {
+			 queryCompListFun({pageNum:3, pageCount: 1}).then( res => {
+				 this.compeInfoList = res.data
+				 console.log(res.data)
+			 })
 		}
 	}
 </script>
@@ -55,5 +61,11 @@
 	    font-size: 35upx;
 	    font-weight: bold;
 	}
+}
+.u-empty {
+	position: fixed;
+	top: 0vh;
+	left: 50vw;
+	transform: translateX(-50%);
 }
 </style>
