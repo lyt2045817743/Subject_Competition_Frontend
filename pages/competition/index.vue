@@ -20,7 +20,7 @@
 			<u-select v-model="showCategoryList" mode="mutil-column-auto" :list="categoryList" @confirm="confirmCate"></u-select>
 			<view class="cb-list">
 				<view class="cbl-hasdata" v-if="compeInfoList.length">
-					<single-competition v-for="(item, index) in compeInfoList" :key="item.id" :cardInfo="item" :hasBtns="true"/>
+					<single-competition v-for="(item) in compeInfoList" :key="item.id" :cardInfo="item" :hasBtns="true"/>
 					<u-loadmore :status="status" margin-top="30" @loadmore="loadmoreCom()"/>
 				</view>
 				<u-empty text="暂无数据" mode="list" v-else></u-empty>
@@ -35,10 +35,11 @@
 <script>
 	import categoryList from './tempData/categoryList.js'
 	import SingleCompetition from './components/SingleCompetition'
+	import { queryCompListFun } from '../../api/competition.js'
 	import compeInfoList from './tempData/compeInfoList.js'
 	const { log } = console;
 	export default {
-		components:{SingleCompetition},
+		components:{ SingleCompetition },
 		data() {
 			return {
 				showCategoryList: false,
@@ -55,6 +56,12 @@
 				curCateSum: 10,
 				compeInfoList,
 			}
+		},
+		onLoad() {
+			 queryCompListFun({pageNum:3, pageCount: 1}).then( res => {
+				 this.compeInfoList = res.data
+				 console.log(res.data)
+			 })
 		},
 		// 在对应的show和hide页面生命周期中打开或关闭监听
 		onShow() {

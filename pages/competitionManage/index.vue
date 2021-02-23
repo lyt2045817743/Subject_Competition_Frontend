@@ -12,9 +12,9 @@
 		<view class="comp-list">
 			<view class="cbl-hasdata" v-if="compeInfoList.length">
 				<single-competition v-for="(item, index) in compeInfoList" :key="item.id" :cardInfo="item" :hasBtns="false"/>
-				<u-loadmore :status="status" margin-top="30" @loadmore="loadmoreCom()"/>
+				<u-loadmore :status="status" margin-top="30" @loadmore="initData()"/>
 			</view>
-			<u-empty text="暂无数据" mode="list" v-else></u-empty>
+			<u-empty class="empty" text="暂无数据" mode="list" v-else></u-empty>
 		</view>
 	</view>
 </template>
@@ -28,11 +28,10 @@
 		data() {
 			return {
 				status: 'loadmore',
+				// pageNum: 2,  // 这里为固定值
+				pageCount: 0,
 				competitionKW: '',
 				compeInfoList: [],
-				loadmoreCom() {
-					// this.compeInfoList = this.compeInfoList.concat(this.compeInfoList);
-				},
 			}
 		},
 		methods: {
@@ -40,13 +39,29 @@
 				uni.navigateTo({
 					url: './basicInfo'
 				})
+			},
+			
+			initData() {
+				this.pageCount = this.pageCount + 1;
+				queryCompListFun({pageNum: 5, pageCount: this.pageCount}).then( res => {
+					
+					if(res.data.length) {
+						
+						// 如果已经获取不到5个数据，则没有更多数据了
+						if(res.data.length < 5) {
+							this.status = 'nomore'
+						}
+						this.compeInfoList = this.compeInfoList.concat(res.data);
+						
+					} else {
+						this.status = 'nomore'
+					}
+					 // console.log(res.data)
+				})
 			}
 		},
 		onLoad() {
-			 queryCompListFun({pageNum:3, pageCount: 1}).then( res => {
-				 this.compeInfoList = res.data
-				 console.log(res.data)
-			 })
+			 this.initData()
 		}
 	}
 </script>
@@ -62,9 +77,9 @@
 	    font-weight: bold;
 	}
 }
-.u-empty {
+.empty {
 	position: fixed;
-	top: 0vh;
+	top: 45vh;
 	left: 50vw;
 	transform: translateX(-50%);
 }

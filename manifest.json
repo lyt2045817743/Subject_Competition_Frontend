@@ -55,7 +55,8 @@
             "urlCheck" : false,
             "es6" : true,
             "postcss" : true,
-            "minified" : true
+            "minified" : true,
+			"checkSiteMap" : false
         },
         "usingComponents" : true,
         "permission" : {
@@ -81,7 +82,7 @@
             "port" : 8080,
 			"proxy" : {
 				"/apis" : {
-					"target" : "https://liuyuting-1999-1d2aea-1301417330.ap-shanghai.app.tcloudbase.com",
+					"target" : "https://www.liuyut.com:5000",
 					"changeOrigin" : true,
 					"secure" : false,
 					"pathRewrite" : {

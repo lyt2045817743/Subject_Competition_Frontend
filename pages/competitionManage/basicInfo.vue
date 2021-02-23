@@ -30,7 +30,7 @@
 		</view> -->
 		<view class="form-btn">
 			<u-button type="info" shape="circle" size="medium" :ripple="true" @click="temporarySave">保存草稿</u-button>
-			<u-button type="primary" shape="circle" size="medium" @click="beforeSubmit">提交</u-button>
+			<u-button class="primary" type="primary" shape="circle" size="medium" @click="beforeSubmit">提交</u-button>
 		</view>
 		<u-modal v-model="modalShow" @confirm="submitCompInfo()" :show-cancel-button="true" content="未设置报名截止日期,是否继续？"></u-modal>
 		<u-toast ref="uToast" />
@@ -134,10 +134,28 @@
 						title: data.msg,
 						type: 'success',
 					})
+					
 					setTimeout(function(){
+						//当前页
+						let pages = getCurrentPages();
+						let beforePage = pages[pages.length - 2];
+						
+						// 添加成功后需要刷新上一页数据
+						// #ifdef H5
+						beforePage.initData()
+						// #endif
+						
+						// #ifndef H5
+						beforePage.$vm.status = 'loadmore'
+						beforePage.$vm.pageCount = 0
+						beforePage.$vm.compeInfoList = []
+						beforePage.$vm.initData()
+						// #endif
+						
+						//跳转返回到上一页
 						uni.navigateBack({
 							delta: 1
-						})
+						});
 					}, 500)
 				})
 			},
@@ -186,12 +204,12 @@
 			position: fixed;
 			bottom: 75upx;
 			margin-left: 65upx;
+			.primary {
+				margin-left: 75upx;
+			}
 		}
 		.deadline-date {
 			margin: 25upx 0;
 		}
-	}
-	.u-btn--primary {
-		margin-left: 50upx;
 	}
 </style>
