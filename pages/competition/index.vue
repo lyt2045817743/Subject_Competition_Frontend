@@ -1,10 +1,10 @@
 <template>
-	<view class="competition">
+	<view class="competition font-set">
 		<u-navbar title="首页" :is-back="false" title-color="#ffffff" :background="{background: '#39cccc'}" :title-bold="true"></u-navbar>
 		<view class="comp-box">
 			<u-sticky :enable="enable">
 				<view class="sticky">
-					<u-search placeholder="请输入竞赛名称" v-model="competitionKW" @search="searchCompetition" @custom="searchCompetition"></u-search>
+					<u-search placeholder="请输入竞赛名称" v-model="competitionKW" @search="initData" @custom="initData"></u-search>
 					<u-gap height="25" bg-color="#F0F5F8"></u-gap>
 					<view class="cb-radio">
 						<text :class="['cbr-cate__text', currentCate === 'all' ? 'active' : '']" @click="tabHandle('all')">{{subCateObj.label}} ({{curCateSum}})</text>
@@ -21,9 +21,9 @@
 			<view class="cb-list">
 				<view class="cbl-hasdata" v-if="compeInfoList.length">
 					<single-competition v-for="(item) in compeInfoList" :key="item.id" :cardInfo="item" :hasBtns="true"/>
-					<u-loadmore :status="status" margin-top="30" @loadmore="loadmoreCom()"/>
+					<u-loadmore :status="status" margin-top="30" @loadmore="initData()"/>
 				</view>
-				<u-empty text="暂无数据" mode="list" v-else></u-empty>
+				<u-empty class="empty" text="暂无数据" mode="list" v-else></u-empty>
 			</view>
 		</view>
 		<view class="wrap">
@@ -34,9 +34,8 @@
 
 <script>
 	import categoryList from './tempData/categoryList.js'
-	import SingleCompetition from './components/SingleCompetition'
+	import SingleCompetition from '../../components/SingleCompetition/SingleCompetition'
 	import { queryCompListFun } from '../../api/competition.js'
-	import compeInfoList from './tempData/compeInfoList.js'
 	const { log } = console;
 	export default {
 		components:{ SingleCompetition },
@@ -50,28 +49,23 @@
 					value: -1
 				},
 				status: 'loadmore',
+				pageCount: 0,
 				competitionKW: '',
 				currentCate: 'all',
+				
 				categoryList, // 从这里开始的变量为后端获取
 				curCateSum: 10,
-				compeInfoList,
+				compeInfoList: [],
+			}
+		},
+		watch: {
+			competitionKW(val) {
+				this.pageCount = 0;
+				this.status = 'loadmore';
 			}
 		},
 		onLoad() {
-			 queryCompListFun({pageNum:3, pageCount: 1}).then( res => {
-				 this.compeInfoList = res.data
-				 console.log(res.data)
-			 })
-		},
-		// 在对应的show和hide页面生命周期中打开或关闭监听
-		onShow() {
-			this.enable= true
-		},
-		onHide() {
-			this.enable= false
-		},
-		onPageScroll(e) {
-			this.scrollTop = e.scrollTop;
+			this.initData()
 		},
 		methods: {
 			searchCompetition(value) {
@@ -82,15 +76,51 @@
 				this.cateObj = value[0];
 				this.subCateObj = value[1];
 			},
-			loadmoreCom() {
-				this.compeInfoList = this.compeInfoList.concat(this.compeInfoList);
-			},
 			
 			// 当切换赛事分类tab时
 			tabHandle(tabName) {
 				this.currentCate = tabName;
 				//...
+			},
+			
+			initData() {
+				this.pageCount = this.pageCount + 1;
+				queryCompListFun({pageNum: 5, pageCount: this.pageCount, keyword: this.competitionKW}).then( res => {
+					
+					if(res.data.length) {
+						
+						// 如果已经获取不到5个数据，则没有更多数据了
+						if(res.data.length < 5) {
+							this.status = 'nomore'
+						}
+						if(this.pageCount !== 1) {
+							this.compeInfoList = this.compeInfoList.concat(res.data);
+						} else {
+							// 如果关键词发生变化，则pageCount重新从1开始，需要清除之前数据。
+							this.compeInfoList = res.data;
+						}
+						
+					} else {
+						this.status = 'nomore'
+					}
+					 // console.log(res.data)
+				})
 			}
+			
+		},
+		
+		// 在对应的show和hide页面生命周期中打开或关闭监听
+		onShow() {
+			// 每次切换tab页后重新加载页面初始数据			
+			this.pageCount = 0;
+			this.initData()
+			this.enable= true
+		},
+		onHide() {
+			this.enable= false
+		},
+		onPageScroll(e) {
+			this.scrollTop = e.scrollTop;
 		}
 	}
 </script>
@@ -134,5 +164,11 @@
 	/deep/ .u-search {
 		padding: 0 25upx 25upx;
 		width: 100%;
+	}
+	.empty {
+		position: fixed;
+		top: 50vh;
+		left: 50vw;
+		transform: translateX(-50%);
 	}
 </style>

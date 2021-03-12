@@ -3,12 +3,12 @@
 		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
 	},
 	"pages": [
-		// {
-		//     "path" : "components/articleWriter/articleWriter"
-		// },
-		// {
-		// 	"path" : "pages/competition/components/articleReader"
-		// },
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
+		},
 		{
 			"path": "pages/mine/index",
 			"style": {
@@ -16,106 +16,114 @@
 				"navigationStyle": "custom"
 			}
 		},
+		// tab页必须在主包下
 		{
-		    "path" : "pages/competition/download",
+			"path": "pages/competition/index",
+			"style": {
+				"navigationBarTitleText": "首页",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/communication/index",
+			"style": {
+				"navigationBarTitleText": "交流"
+			}
+		}
+    ],
+	"subPackages": [
+		// 管理者单独分包
+		{
+		"root": "manager/pages",
+		"pages": [{
+            "path" : "userManage/index",
+            "style" : {
+                "navigationBarTitleText": "用户管理",
+                "enablePullDownRefresh": false
+            }
+        }
+        ,{
+		    "path" : "competitionManage/index",
+		    "style" : 
+		    {
+		        "navigationBarTitleText": "赛事管理",
+		        "enablePullDownRefresh": false
+		    }
+		},{
+		    "path" : "roleManage/index",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "角色管理",
+		        "enablePullDownRefresh": false
+		    }
+		},{
+            "path" : "competitionManage/basicInfo",
+            "style" : 
+            {
+                "navigationBarTitleText": "赛事详情",
+                "enablePullDownRefresh": false
+            }
+        }
+        ,{
+            "path" : "competitionManage/competitionEdit",
+            "style" : {
+                "navigationBarTitleText": "赛事编辑",
+                "enablePullDownRefresh": false
+            }
+        }
+		]
+	}, 
+	// {
+	// 	"root": "pages/communication",
+	// 	"pages": [{
+	// 		"path": "index",
+	// 		"style": {
+	// 			"navigationBarTitleText": "交流"
+	// 		}
+	// 	}
+	// 	]
+	// },
+	// 赛事详情单独分包
+	{
+		"root": "competition/pages",
+		"pages": [
+		{
+		    "path" : "download",
 		    "style" :
 		    {
 		        "navigationBarTitleText": "附件下载"
 		    }
 		},
 		{
-		    "path" : "pages/competition/notify",
+		    "path" : "notify",
 		    "style" :{
 		        "navigationBarTitleText": "赛事通知"
 		    }
-		},{
-			"path": "pages/competition/index",
-			"style": {
-				"navigationBarTitleText": "首页",
-				"navigationStyle": "custom"
-			}
-		},{
-			"path": "pages/index/index",
-			"style": {
-				"navigationBarTitleText": "登录"
-			}
-		},{
-			"path": "pages/communication/index",
-			"style": {
-				"navigationBarTitleText": "交流"
-			}
-		},{
-            "path" : "pages/competition/components/SingleCompetition",
-            "style" : {
-                "navigationBarTitleText": ""
-            }
-        },{
-            "path" : "pages/competition/apply",
+		},
+		{
+            "path" : "apply",
             "style" :
             {
                 "navigationBarTitleText": "去报名"
             }
         },{
-            "path" : "pages/competition/history",
+            "path" : "history",
             "style" :
             {
                 "navigationBarTitleText": "历年风采"
             } 
-        }
-        ,{
-            "path" : "components/articleWriter/articleWriter",
-            "style" : {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-        }
-        ,{
-            "path" : "components/articleReader/articleReader",
-            "style" : {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-        },{
-            "path" : "pages/mine/components/basicInfo",
-            "style" : {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-        }
-        ,{
-            "path" : "pages/userManage/index",
-            "style" : {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-        }
-        ,{
-            "path" : "pages/competitionManage/basicInfo",
-            "style" : 
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-        }
-        ,{
-            "path" : "pages/competitionManage/index",
-            "style" : 
-            {
-                "navigationBarTitleText": "赛事编辑",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/competitionManage/competitionEdit",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-    ],
+        }]
+	}], 
+	// "preloadRule": {
+	// 	"pagesA/list/list": {
+	// 		"network": "all",
+	// 		"packages": ["__APP__"]
+	// 	},
+	// 	"pagesB/detail/detail": {
+	// 		"network": "all",
+	// 		"packages": ["pagesA"]
+	// 	}
+	// },
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "学科竞赛系统",
@@ -143,5 +151,15 @@
 			"selectedIconPath": "static/tab/mine_sel.png",
 			"text":"我的"
 		}]
+	},
+	"condition" : { //模式配置，仅开发期间生效
+		"current": 0, //当前激活的模式(list 的索引项)
+		"list": [
+			{
+				"name": "", //模式名称
+				"path": "", //启动页面，必选
+				"query": "" //启动参数，在页面的onLoad函数里面得到
+			}
+		]
 	}
 }

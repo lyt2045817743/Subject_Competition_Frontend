@@ -1,10 +1,10 @@
 <template>
-	<view>
+	<view class="font-set">
 		<u-navbar title="个人中心" :border-bottom="false" title-color="#ffffff" :is-back="false" :background="{background: '#39cccc'}" :title-bold="true"></u-navbar>
 		<basic-info></basic-info>
 		<view class="shortcut">
 			<u-grid :col="3" :border="false">
-				<u-grid-item :custom-style="{'border': '3px solid #ffffff'}" bg-color="#f1fefe" v-for="(item, index) in shortcutList" :key="item.label"  @click="goPath(item.path)">
+				<u-grid-item :custom-style="{'border': '3px solid #ffffff'}" bg-color="#f1fefe" v-for="(item) in shortcutList" :key="item.label"  @click="goPath(item.path)">
 					<u-icon :name="item.icon" :size="46"></u-icon>
 					<view class="grid-text">{{item.label}}</view>
 				</u-grid-item>

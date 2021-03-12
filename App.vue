@@ -14,4 +14,8 @@
 
 <style lang="scss">
 	@import "uview-ui/index.scss";
+	.font-set {
+		font-family: 'SimSun';
+		font-weight: bold;
+	}
 </style>

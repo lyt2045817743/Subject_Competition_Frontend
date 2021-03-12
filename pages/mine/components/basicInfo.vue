@@ -1,5 +1,5 @@
 <template>
-	<view class="myhome">
+	<view class="myhome font-set">
 		
 	</view>
 </template>

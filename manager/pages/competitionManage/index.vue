@@ -1,5 +1,5 @@
 <template>
-	<view class="content">
+	<view class="content font-set">
 		<view class="firstline">
 			<text class="title">赛事列表</text>
 			<view class="newbtn" @click="addComp">
@@ -7,7 +7,7 @@
 			</view>
 		</view>
 		<view class="search">
-			<u-search placeholder="请输入竞赛名称" v-model="competitionKW" @search="searchCompetition" @custom="searchCompetition"></u-search>
+			<u-search placeholder="请输入竞赛名称" v-model="competitionKW" @search="initData" @custom="initData"></u-search>
 		</view>
 		<view class="comp-list">
 			<view class="cbl-hasdata" v-if="compeInfoList.length">
@@ -20,9 +20,9 @@
 </template>
 
 <script>
-	import SingleCompetition from '../competition/components/SingleCompetition'
+	import SingleCompetition from '../../../components/SingleCompetition/SingleCompetition'
 	// import compeInfoList from '../competition/tempData/compeInfoList.js'
-	import { queryCompListFun } from '../../api/competition.js'
+	import { queryCompListFun } from '../../../api/competition.js'
 	export default {
 		components: { SingleCompetition },
 		data() {
@@ -34,6 +34,15 @@
 				compeInfoList: [],
 			}
 		},
+		watch: {
+			competitionKW(val) {
+				this.pageCount = 0;
+				this.status = 'loadmore';
+			}
+		},
+		onLoad() {
+			 this.initData()
+		},
 		methods: {
 			addComp() {
 				uni.navigateTo({
@@ -43,7 +52,7 @@
 			
 			initData() {
 				this.pageCount = this.pageCount + 1;
-				queryCompListFun({pageNum: 5, pageCount: this.pageCount}).then( res => {
+				queryCompListFun({pageNum: 5, pageCount: this.pageCount, keyword: this.competitionKW}).then( res => {
 					
 					if(res.data.length) {
 						
@@ -51,7 +60,12 @@
 						if(res.data.length < 5) {
 							this.status = 'nomore'
 						}
-						this.compeInfoList = this.compeInfoList.concat(res.data);
+						if(this.pageCount !== 1) {
+							this.compeInfoList = this.compeInfoList.concat(res.data);
+						} else {
+							// 如果关键词发生变化，则pageCount重新从1开始，需要清除之前数据。
+							this.compeInfoList = res.data;
+						}
 						
 					} else {
 						this.status = 'nomore'
@@ -59,9 +73,7 @@
 					 // console.log(res.data)
 				})
 			}
-		},
-		onLoad() {
-			 this.initData()
+			
 		}
 	}
 </script>

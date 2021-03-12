@@ -1,5 +1,5 @@
 <template>
-	<view class="notify">
+	<view class="notify font-set">
 		<view class="notify-list__btn" @click="showList = true">
 			<u-icon name="list" color="#808080" size="50"></u-icon>
 			<u-badge type="info" :count="notifyTabList.length" :offset="[-5,-5]"></u-badge>

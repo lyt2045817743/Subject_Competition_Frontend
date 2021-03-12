@@ -1,5 +1,5 @@
 <template>
-	<view class="single-com__card">
+	<view class="single-com__card font-set">
 		<view class="sc-info" @click="cardClickHandle">
 			<view class="si-basic">
 				<!-- <u-avatar :src="cardInfo.headUrl" size="large" /> -->
@@ -40,9 +40,9 @@
 </template>
 
 <script>
-	import codeTranslater from '../../../utils/codeTranslater'
-	import calendarComputer from '../../../utils/calendarComputer.js'
-	import { comStageModel } from '../../../models/competition.d'
+	import codeTranslater from '../../utils/codeTranslater'
+	import calendarComputer from '../../utils/calendarComputer.js'
+	import { comStageModel } from '../../models/competition.d'
 	export default {
 		data() {
 			return {
@@ -104,10 +104,11 @@
 		.sc-info{
 			// border: 1px solid #f2f2f2;
 			box-shadow: 0px 1px 0px 0px #f2f2f2;
-			padding: 25upx;
+			padding: 0;
+			padding-bottom: 25upx;
 			margin-top: 25upx;
 			border-radius: 15upx;
-			border: 2.5upx solid rgba(0, 0, 0, 0.1);
+			border: 2.5upx solid #ebfafa;
 			.si-basic {
 				display: flex;
 				align-items: center;
@@ -116,6 +117,8 @@
 					width: 100%;
 					.sibt-firstline {
 						display: flex;
+						padding: 25upx;
+						background: #d6f5f5;
 						.sif-name {
 							font-size: 35upx;
 							font-weight: bold;
@@ -126,7 +129,7 @@
 						.sif-label {
 							display: inline-block;
 							padding: 0 10upx;
-							border: 1px dashed #d9d9d9;
+							border: 1px dashed #ebfafa;
 							margin-left: 12.5upx;
 							background: #fafad1;
 							position: absolute;
@@ -137,6 +140,7 @@
 					.sibt-single {
 						font-size: 27.5upx;
 						margin-top: 12.5upx;
+						padding: 0 25upx;
 					}
 				}
 			}

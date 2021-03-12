@@ -29,7 +29,7 @@
 			<view class="ei-btn"><u-icon name="plus-circle" />自定义信息</view>
 		</view> -->
 		<view class="form-btn">
-			<u-button type="info" shape="circle" size="medium" :ripple="true" @click="temporarySave">保存草稿</u-button>
+			<!-- <u-button type="info" shape="circle" size="medium" :ripple="true" @click="temporarySave">保存草稿</u-button> -->
 			<u-button class="primary" type="primary" shape="circle" size="medium" @click="beforeSubmit">提交</u-button>
 		</view>
 		<u-modal v-model="modalShow" @confirm="submitCompInfo()" :show-cancel-button="true" content="未设置报名截止日期,是否继续？"></u-modal>
@@ -38,10 +38,10 @@
 </template>
 
 <script>
-	import { comStageModel } from '../../models/competition.d.js'
-	import codeTranslater from '../../utils/codeTranslater'
-	import calendarComputer from '../../utils/calendarComputer.js'
-	import { addCompFun } from '../../api/competition.js'
+	import { comStageModel } from '../../../models/competition.d.js'
+	import codeTranslater from '../../../utils/codeTranslater'
+	import calendarComputer from '../../../utils/calendarComputer.js'
+	import { addCompFun } from '../../../api/competition.js'
 	export default {
 		data() {
 			return {
@@ -130,6 +130,7 @@
 				const formData = {...this.form, deadlineDate, curStageNum, currentInsti: this.currentInsti, createTime: new Date(), createUser}
 				console.log(formData)
 				addCompFun(formData).then( data => {
+					
 					this.$refs['uToast'].show({
 						title: data.msg,
 						type: 'success',
@@ -157,6 +158,7 @@
 							delta: 1
 						});
 					}, 500)
+						
 				})
 			},
 			
@@ -203,10 +205,12 @@
 		.form-btn {
 			position: fixed;
 			bottom: 75upx;
-			margin-left: 65upx;
-			.primary {
-				margin-left: 75upx;
-			}
+			left: 50%;
+			transform: translateX(-50%);
+			// margin-left: 65upx;
+			// .primary {
+			// 	margin-left: 75upx;
+			// }
 		}
 		.deadline-date {
 			margin: 25upx 0;

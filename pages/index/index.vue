@@ -1,14 +1,27 @@
 <template>
 	<view class="content">
-		<u-button type="primary">登录</u-button>
+		<view class="info-box">
+			<u-avatar class="icon-img" :src="logoUrl" size="250" mode="circle"></u-avatar>
+			<view class="title">
+				高校学科竞赛系统
+			</view>
+		</view>
+		<view class="personal-info__form">
+			<u-input v-model="idNumber" placeholder="请输入学号/教工号/专家账号" type="text" :border="true"/>
+			<u-input v-model="pwd" placeholder="请输入密码" type="password"  :border="true"/>
+			<u-button type="primary" @click="loginFinish()">登录</u-button>
+		</view>
 	</view>
 </template>
 
 <script>
+	import { logoUrl } from '../../config/base.js'
 	export default {
 		data() {
 			return {
-				title: 'Hello'
+				logoUrl,
+				idNumber: '',
+				pwd:''
 			}
 		},
 		onLoad() {
@@ -17,7 +30,7 @@
 		methods: {
 			loginFinish() {
 				uni.switchTab({
-					url:'../competition/competition'
+					url:'../competition/index'
 				})
 			}
 		}
@@ -27,6 +40,25 @@
 <style lang="scss">
 	.u-btn--primary {
 		width: 80%;
-		margin: 10px auto;
+		margin: 25upx auto;
+	}
+	.u-input {
+		width: 550upx;
+		display: inline-block;
+		margin: 35upx auto;
+	}
+	.info-box {
+		text-align: center;
+    	margin-top: 125upx;
+		.icon-img {
+			display: inline-block;
+			margin: 0 auto;
+		}
+		.title {
+			font-size: 40upx;
+			font-weight: bold;
+			margin-bottom: 75upx;
+			margin-top: 25upx;
+		}
 	}
 </style>
