@@ -1,11 +1,6 @@
 <template>
 	<view class="content font-set">
-		<view class="firstline">
-			<text class="title">赛事列表</text>
-			<view class="newbtn" @click="addComp">
-				<u-icon name="plus-circle" />新建
-			</view>
-		</view>
+		<first-line title="赛事列表" url="./addCompetition" />
 		<view class="search">
 			<u-search placeholder="请输入竞赛名称" v-model="competitionKW" @search="initData" @custom="initData"></u-search>
 		</view>
@@ -21,10 +16,11 @@
 
 <script>
 	import SingleCompetition from '../../../components/SingleCompetition/SingleCompetition'
+	import FirstLine from '../../components/FirstLine/FirstLine.vue'
 	// import compeInfoList from '../competition/tempData/compeInfoList.js'
 	import { queryCompListFun } from '../../../api/competition.js'
 	export default {
-		components: { SingleCompetition },
+		components: { SingleCompetition, FirstLine },
 		data() {
 			return {
 				status: 'loadmore',
@@ -44,12 +40,6 @@
 			 this.initData()
 		},
 		methods: {
-			addComp() {
-				uni.navigateTo({
-					url: './basicInfo'
-				})
-			},
-			
 			initData() {
 				this.pageCount = this.pageCount + 1;
 				queryCompListFun({pageNum: 5, pageCount: this.pageCount, keyword: this.competitionKW}).then( res => {
@@ -63,7 +53,7 @@
 						if(this.pageCount !== 1) {
 							this.compeInfoList = this.compeInfoList.concat(res.data);
 						} else {
-							// 如果关键词发生变化，则pageCount重新从1开始，需要清除之前数据。
+							// 如果关键词发生变化，此时pageCount是从1开始，需要清除之前数据。
 							this.compeInfoList = res.data;
 						}
 						

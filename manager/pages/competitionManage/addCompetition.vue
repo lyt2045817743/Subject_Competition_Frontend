@@ -191,7 +191,6 @@
 		
 		onReady() {
 			this.$refs['uForm'].setRules(this.rules);
-			console.log(this.maxDate, this.minDate)
 		}
 	}
 </script>

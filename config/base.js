@@ -1,6 +1,7 @@
 // API地址以及服务器代理地址
 // #ifdef MP-WEIXIN
-export const baseUrl = "http://82.156.118.241:5000"
+// export const baseUrl = "http://82.156.118.241:5000" // 线上接口地址
+export const baseUrl = "http://localhost:5000" // 本地接口地址
 // #endif
 
 // #ifdef H5
