@@ -7,8 +7,8 @@
 			</view>
 		</view>
 		<view class="personal-info__form">
-			<u-input v-model="idNumber" placeholder="请输入学号/教工号/专家账号" type="text" :border="true"/>
-			<u-input v-model="pwd" placeholder="请输入密码" type="password"  :border="true"/>
+			<u-input v-model="numberId" placeholder="请输入学号/教工号/专家账号" type="text" :border="true"/>
+			<u-input v-model="password" placeholder="请输入密码" type="password"  :border="true"/>
 			<u-button type="primary" @click="loginFinish()">登录</u-button>
 		</view>
 	</view>
@@ -16,12 +16,13 @@
 
 <script>
 	import { logoUrl } from '../../config/base.js'
+	import { loginFun } from '../../api/user.js'
 	export default {
 		data() {
 			return {
 				logoUrl,
-				idNumber: '',
-				pwd:''
+				numberId: '',
+				password:''
 			}
 		},
 		onLoad() {
@@ -29,8 +30,10 @@
 		},
 		methods: {
 			loginFinish() {
-				uni.switchTab({
-					url:'../competition/index'
+				loginFun({numberId: this.numberId, password: this.password}).then( res => {
+					uni.switchTab({
+						url:'../competition/index'
+					})
 				})
 			}
 		}

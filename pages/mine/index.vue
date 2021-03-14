@@ -27,7 +27,7 @@
 
 <script>
 	import basicInfo from './components/basicInfo'
-	import { managerShortcut } from '../../config/shortcutAuthorize.js'
+	import { managerShortcut } from '../../models/shortcutAuthorize.d.js'
 	export default {
 		components: { basicInfo },
 		data() {
