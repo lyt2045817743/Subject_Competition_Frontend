@@ -32,6 +32,9 @@
 
 <script>
 	let { log } = console
+	import codeTranslater from '../../../utils/codeTranslater.js'
+	import { managerShortcut } from '../../../models/shortcutAuthorize.d.js'
+	import { addRoleFun } from '../../../api/role.js'
 	export default {
 		data() {
 			return {
@@ -109,7 +112,48 @@
 				});
 			},
 			submitForm() {
-				log(this.form)
+				
+				const busTrans = new codeTranslater(managerShortcut.business)
+				const sysTrans = new codeTranslater(managerShortcut.system)
+				
+				const busAuthVals = this.form.busAuthVals.map( item => {
+					return busTrans.returnCode(item)
+				})
+				const sysAuthVals = this.form.sysAuthVals.map( item => {
+					return sysTrans.returnCode(item)
+				})
+				
+				const data = {...this.form, busAuthVals, sysAuthVals}
+				
+				log(data)
+				addRoleFun(data).then(res => {
+					this.$refs['uToast'].show({
+						title: res.msg,
+						type: 'success',
+					})
+					
+					setTimeout(function(){
+						//当前页
+						let pages = getCurrentPages();
+						let beforePage = pages[pages.length - 2];
+						
+						// 添加成功后需要刷新上一页数据
+						// // #ifdef H5
+						// beforePage.initData()
+						// // #endif
+						
+						// // #ifndef H5
+						// // beforePage.$vm.pageCount = 0
+						// // beforePage.$vm.compeInfoList = []
+						// beforePage.$vm.initData()
+						// // #endif
+						
+						//跳转返回到上一页
+						uni.navigateBack({
+							delta: 1
+						});
+					}, 500)
+				})
 			}
 		},
 		onReady() {
