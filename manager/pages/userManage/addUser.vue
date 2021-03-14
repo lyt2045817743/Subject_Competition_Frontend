@@ -18,7 +18,7 @@
 			<u-form-item label="学工号">
 				<view  class="numberId-box">
 					<view class="numberIdInp" v-for="(item, i) in numberIds" :key="i">
-						<u-input v-model="numberIds[i]" :clearable="false" />
+						<u-input v-model="numberIds[i]" type="number" :clearable="false" />
 						<u-icon name="minus-circle" class="reduceBtn" @click="removeNumberId(i)" v-if="addType === '批量添加' && numberIds.length !== 1" />
 					</view>
 					<u-icon name="plus-circle" class="addBtn" @click="addNumberId" v-if="addType === '批量添加'" />
@@ -49,19 +49,30 @@
 			<u-button class="primary" type="primary" shape="circle" size="medium" @click="beforeSubmit">提交</u-button>
 		</view>
 		<u-toast ref="uToast" />
+		<u-modal v-model="modalShow" :show-cancel-button="true" @cancel="returnLastPage" @confirm="continueAdd" :title-style="{color: 'black'}" content="添加成功,是否继续添加？">
+		</u-modal>
 	</view>
 </template>
 
 <script>
 	import { queryRoleListFun } from '../../../api/role.js'
+	import { addUserFun } from '../../../api/user.js'
 	import { identityModel } from '../../../models/user.d.js'
 	import codeTranslater from '../../../utils/codeTranslater.js'
 	let {log} = console
+	
+	const initFrom = {
+					roleVal: '',
+					initPwd: '',
+					identityType: '',
+					isManager: false
+				}
 	export default {
 		data() {
 			return {
 				addType: '单个添加',
 				show: false,
+				modalShow: false,
 				typeList: [
 					{
 						name: '单个添加',
@@ -113,12 +124,7 @@
 				numberIds: [
 					''
 				],
-				form: {
-					roleVal: '',
-					initPwd: '',
-					identityType: '',
-					isManager: false
-				},
+				form: JSON.parse(JSON.stringify(initFrom)),
 				roleLabel: '',
 				// 后端获取
 				roleList: [
@@ -144,10 +150,12 @@
 				for (let i = 0; i < 6; i++) str += t.charAt(Math.floor(Math.random() * t.length));
 				this.form.initPwd = str;
 			},
+			
 			addNumberId() {
 				this.numberIds = this.numberIds.concat(['']);
 				log(this.numberIds)
 			},
+			
 			// 删除某个学工号
 			removeNumberId(idx) {
 				let temp = this.numberIds;
@@ -155,18 +163,28 @@
 				this.numberIds = temp;
 				// log(this.numberIds)
 			},
+			
 			// 获取角色列表
 			queryRoleList() {
-				queryRoleListFun()
+				queryRoleListFun({pageCount: -1, pageNum: -1}).then(res => {
+					this.roleList = res.data.map(item => {
+						return {
+							label: item.roleName,
+							value: item._id
+						}
+					});
+					log(this.roleList)
+				})
 			},
+			
 			// 选择管理员角色
 			changeRoleVal(val) {
 				this.form.roleVal = val[0].value;
 				this.roleLabel = val[0].label;
 				log(this.form.roleVal)
 			},
+			
 			beforeSubmit() {
-				log(this.form)
 				// 验证是否有空的学工号
 				if(this.numberIds.indexOf('') !== -1) {
 					this.$refs['uToast'].show({
@@ -183,14 +201,50 @@
 					}
 				});
 			},
+			
 			submitForm() {
 				const identityType = new codeTranslater(identityModel).returnCode(this.form.identityType)
 				const data = {...this.form, numberIds: this.numberIds, identityType}
 				log(data)
+				addUserFun(data).then( res => {
+					this.modalShow = true;
+				})
+			},
+			
+			// 继续添加
+			continueAdd() {
+				this.form = JSON.parse(JSON.stringify(initFrom));
+				this.numberIds = [''];
+			},
+			
+			// 不继续添加则返回上级页面
+			returnLastPage() {
+				setTimeout(function(){
+					//当前页
+					let pages = getCurrentPages();
+					let beforePage = pages[pages.length - 2];
+					
+					// ...
+					// // 添加成功后需要刷新上一页数据
+					// // #ifdef H5
+					// beforePage.initData()
+					// // #endif
+					
+					// // #ifndef H5
+					// beforePage.$vm.pageCount = 0
+					// // beforePage.$vm.compeInfoList = []
+					// beforePage.$vm.initData()
+					// // #endif
+					
+					//跳转返回到上一页
+					uni.navigateBack({
+						delta: 1
+					});
+				}, 500)
 			}
 		},
 		onLoad() {
-			// this.queryRoleList();
+			this.queryRoleList();
 		},
 		onReady() {
 			this.$refs['uForm'].setRules(this.rules);
