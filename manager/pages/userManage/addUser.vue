@@ -1,7 +1,7 @@
 <template>
 	<view class="content">
 		<u-form :model="form" ref="uForm" label-width="200">
-			<u-form-item label="添加方式">
+			<u-form-item label="添加方式" v-if="type === 'add'">
 				<u-radio-group v-model="addType">
 					<u-radio v-for="(item, index) in typeList" :key="index" :name="item.name" :disabled="item.disabled">
 						{{ item.name }}
@@ -9,22 +9,25 @@
 				</u-radio-group>
 			</u-form-item>
 			<u-form-item label="身份" prop="identityType">
-				<u-radio-group v-model="form.identityType">
+				<u-radio-group v-model="form.identityType" v-if="type === 'add'">
 					<u-radio v-for="(item, index) in identityTypeList" :key="index" :name="item.name" :disabled="item.disabled">
 						{{ item.name }}
 					</u-radio>
 				</u-radio-group>
+				<view class="info-text" v-else>
+					{{form.identityType}}
+				</view>
 			</u-form-item>
 			<u-form-item label="学工号">
 				<view  class="numberId-box">
 					<view class="numberIdInp" v-for="(item, i) in numberIds" :key="i">
-						<u-input v-model="numberIds[i]" type="number" :clearable="false" />
+						<u-input v-model="numberIds[i]" type="number" :clearable="false" :disabled="type === 'detail'" />
 						<u-icon name="minus-circle" class="reduceBtn" @click="removeNumberId(i)" v-if="addType === '批量添加' && numberIds.length !== 1" />
 					</view>
 					<u-icon name="plus-circle" class="addBtn" @click="addNumberId" v-if="addType === '批量添加'" />
 				</view>
 			</u-form-item>
-			<u-form-item label="初始密码" prop="initPwd">
+			<u-form-item label="初始密码" prop="initPwd" v-if="type === 'add'">
 				<view class="initPwd-box">
 					<u-input v-model="form.initPwd" class="ib-inp" />
 					<view class="random-pwd" @click="pwdBuilder">
@@ -32,10 +35,13 @@
 					</view>
 				</view>
 			</u-form-item>
-			<u-form-item label="是否为管理员">
-				<u-switch class="switch" v-model="form.isManager" size="40" />
+			<u-form-item :label="isEdit ? '设置为管理员' : '是否为管理员'">
+				<u-switch class="switch" v-if="type === 'add' || isEdit" v-model="form.isManager" size="40" />
+				<view class="info-text" v-else>
+					{{form.isManager ? '是' : '否'}}
+				</view>
 			</u-form-item>
-			<u-form-item label="管理员角色" v-if="form.isManager" prop="roleVal">
+			<u-form-item label="管理员角色" v-if="form.isManager && (type === 'add' || isEdit)" prop="roleVal">
 				<u-select v-model="show" :list="roleList" @confirm="changeRoleVal"></u-select>
 				<view class="role-box">
 					<text class="rb-text" v-if="roleLabel">{{roleLabel}}</text>
@@ -46,7 +52,10 @@
 		</u-form>
 		<view class="form-btn">
 			<!-- <u-button type="info" shape="circle" size="medium" :ripple="true" @click="temporarySave">保存草稿</u-button> -->
-			<u-button class="primary" type="primary" shape="circle" size="medium" @click="beforeSubmit">提交</u-button>
+			<u-button class="primary" shape="circle" size="medium"  v-if="type === 'add'" @click="confirmEdit">重置</u-button>
+			<u-button class="primary" shape="circle" size="medium" v-if="type === 'detail' && isEdit" @click="confirmEdit">取消</u-button>
+			<u-button class="primary" type="primary" shape="circle" size="medium" v-if="type === 'add' || isEdit" @click="beforeSubmit">提交</u-button>
+			<u-button class="primary" type="primary" shape="circle" size="medium" v-if="type === 'detail' && !isEdit" @click="isEdit = true">编辑</u-button>
 		</view>
 		<u-toast ref="uToast" />
 		<u-modal v-model="modalShow" :show-cancel-button="true" @cancel="returnLastPage" @confirm="continueAdd" :title-style="{color: 'black'}" content="添加成功,是否继续添加？">
@@ -56,16 +65,19 @@
 
 <script>
 	import { queryRoleListFun } from '../../../api/role.js'
-	import { addUserFun } from '../../../api/user.js'
+	import { addUserFun, getUserInfoFun, updateUserInfoFun } from '../../../api/user.js'
 	import { identityModel } from '../../../models/user.d.js'
 	import codeTranslater from '../../../utils/codeTranslater.js'
 	let {log} = console
 	
-	const initFrom = {
-					roleVal: '',
-					initPwd: '',
-					identityType: '',
-					isManager: false
+	const emptyData = {
+					form: {
+						roleVal: '',
+						initPwd: '',
+						identityType: '',
+						isManager: false
+					},
+					roleLabel: ''
 				}
 	export default {
 		data() {
@@ -73,6 +85,8 @@
 				addType: '单个添加',
 				show: false,
 				modalShow: false,
+				isEdit: false,
+				type: '',
 				typeList: [
 					{
 						name: '单个添加',
@@ -124,7 +138,8 @@
 				numberIds: [
 					''
 				],
-				form: JSON.parse(JSON.stringify(initFrom)),
+				initDataObj: JSON.parse(JSON.stringify(emptyData)),
+				form: JSON.parse(JSON.stringify(emptyData.form)),
 				roleLabel: '',
 				// 后端获取
 				roleList: [
@@ -203,17 +218,42 @@
 			},
 			
 			submitForm() {
-				const identityType = new codeTranslater(identityModel).returnCode(this.form.identityType)
-				const data = {...this.form, numberIds: this.numberIds, identityType}
-				log(data)
-				addUserFun(data).then( res => {
-					this.modalShow = true;
-				})
+				const identityType = new codeTranslater(identityModel).returnCode(this.form.identityType);
+				if(this.type === 'add') {
+					const data = {...this.form, numberIds: this.numberIds, identityType}
+					// log(data)
+					addUserFun(data).then( res => {
+						this.modalShow = true;
+					})
+				} 
+				if(this.type === 'detail'){
+					const data = {isManager: this.form.isManager, roleVal: this.form.roleVal};
+					log(data, this.numberIds[0])
+					updateUserInfoFun(this.numberIds[0], data).then( res => {
+						this.isEdit = false;
+						this.$refs['uToast'].show({
+							title: res.msg,
+							type: 'success',
+						});
+						this.initDataObj = {
+							form: JSON.parse(JSON.stringify(this.form)),
+							roleLabel: this.roleLabel
+						};
+					})
+				}
+			},
+			
+			// 取消编辑
+			confirmEdit() {
+				this.form = JSON.parse(JSON.stringify(this.initDataObj.form));
+				this.roleLabel = this.initDataObj.roleLabel;
+				this.isEdit = false;
 			},
 			
 			// 继续添加
 			continueAdd() {
-				this.form = JSON.parse(JSON.stringify(initFrom));
+				this.form = JSON.parse(JSON.stringify(this.initDataObj.form));
+				this.roleLabel = this.initDataObj.roleLabel;
 				this.numberIds = [''];
 			},
 			
@@ -224,18 +264,6 @@
 					let pages = getCurrentPages();
 					let beforePage = pages[pages.length - 2];
 					
-					// ...
-					// // 添加成功后需要刷新上一页数据
-					// // #ifdef H5
-					// beforePage.initData()
-					// // #endif
-					
-					// // #ifndef H5
-					// beforePage.$vm.pageCount = 0
-					// // beforePage.$vm.compeInfoList = []
-					// beforePage.$vm.initData()
-					// // #endif
-					
 					//跳转返回到上一页
 					uni.navigateBack({
 						delta: 1
@@ -243,8 +271,33 @@
 				}, 500)
 			}
 		},
-		onLoad() {
+		onLoad(params) {
+			// 获取角色列表（列选择器数据）
 			this.queryRoleList();
+			// log(params)
+			if(params.type === 'add') {
+				this.type = 'add';
+				this.isEdit = true;
+			}
+			if(params.type === 'detail') {
+				this.type = 'detail';
+				this.isEdit = false;
+				getUserInfoFun(params.numberId).then( res => {
+					const identityType = new codeTranslater(identityModel).transCode(res.data.identityType);
+					const findResult = this.roleList.find(item => {
+						return item.value === res.data.roleVal;
+					});
+					
+					this.form = {...this.form, ...res.data, identityType};
+					this.numberIds = [res.data.numberId];
+					this.roleLabel = findResult ? findResult.label : '';
+					this.initDataObj = {
+						form: JSON.parse(JSON.stringify(this.form)),
+						roleLabel: this.roleLabel
+					};
+				})
+			}
+			
 		},
 		onReady() {
 			this.$refs['uForm'].setRules(this.rules);
@@ -258,8 +311,12 @@
 		.form-btn {
 			position: fixed;
 			bottom: 75upx;
+			display: flex;
 			left: 50%;
 			transform: translateX(-50%);
+			.primary {
+				margin-left: 12.5upx;
+			}
 		}
 		.switch {
 			vertical-align: middle;

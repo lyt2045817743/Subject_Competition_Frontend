@@ -1,4 +1,4 @@
-import { loginUrl, addUserUrl, queryUserListUrl } from './api.js'
+import { loginUrl, addUserUrl, queryUserListUrl, getUserInfoUrl, updateUserInfoUrl, delUserUrl } from './api.js'
 import { request } from './request.js'
 import { toQueryString } from '../utils/toQueryString.js'
 
@@ -26,8 +26,36 @@ function queryUserListFun(params) {
 	})
 }
 
+// 根据numberId获取单个用户信息
+function getUserInfoFun(numberId) {
+	const url = getUserInfoUrl + '/' + numberId;
+	return request(url, {
+		method: 'GET'
+	})
+}
+
+// 根据numberId修改某个用户信息
+function updateUserInfoFun(numberId, data) {
+	const url = updateUserInfoUrl + '/' + numberId;
+	return request(url, {
+		method: 'PUT',
+		data
+	})
+}
+
+// 根据numberId删除用户
+function delUserFun(numberId) {
+	const url = delUserUrl + '/' + numberId;
+	return request(url, {
+		method: 'DELETE'
+	})
+}
+
 export {
 	loginFun,
 	addUserFun,
-	queryUserListFun
+	queryUserListFun,
+	getUserInfoFun,
+	updateUserInfoFun,
+	delUserFun
 }
