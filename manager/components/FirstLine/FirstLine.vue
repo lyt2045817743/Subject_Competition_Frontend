@@ -27,7 +27,7 @@
 		methods: {
 			addComp() {
 				uni.navigateTo({
-					url: this.url
+					url: this.url + '?type=add'
 				})
 			},
 		}
@@ -43,6 +43,20 @@
 	.title {
 	    font-size: 35upx;
 	    font-weight: bold;
+		display: flex;
+		color: #44a299;
+		&::before {
+			display: block;
+			content: "";
+			margin-right: 12.5upx;
+			width: 0;
+			border: 7.5upx solid #44a299;
+		}
+	}
+	.newbtn {
+		background-color: #93d2cc;
+		border-radius: 25upx;
+		padding: 12.5upx;
 	}
 }
 </style>

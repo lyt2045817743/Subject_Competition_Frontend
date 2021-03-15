@@ -14,7 +14,7 @@ export function request(url, options) {
 			uni.showToast({
 				title: data.msg,
 				icon: 'none',
-				duration: 1000    //持续时间为 1秒
+				duration: 1500    //持续时间为 1.5秒
 			})  
 		}
 		else {

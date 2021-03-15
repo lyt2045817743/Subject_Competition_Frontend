@@ -45,7 +45,7 @@
             "path" : "pages/userManage/addUser",
             "style" : 
             {
-                "navigationBarTitleText": "新增用户",
+                "navigationBarTitleText": "",
                 "enablePullDownRefresh": false
             }
         }
