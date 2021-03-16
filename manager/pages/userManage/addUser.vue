@@ -168,7 +168,7 @@
 			
 			addNumberId() {
 				this.numberIds = this.numberIds.concat(['']);
-				log(this.numberIds)
+				// log(this.numberIds)
 			},
 			
 			// 删除某个学工号
@@ -189,6 +189,13 @@
 						}
 					});
 					log(this.roleList)
+				}).catch( err => {
+					// log(err);
+					uni.showToast({
+						title: err,
+						icon: 'none',
+						duration: 1500    //持续时间为 1.5秒
+					})
 				})
 			},
 			
@@ -196,7 +203,7 @@
 			changeRoleVal(val) {
 				this.form.roleVal = val[0].value;
 				this.roleLabel = val[0].label;
-				log(this.form.roleVal)
+				// log(this.form.roleVal)
 			},
 			
 			beforeSubmit() {
@@ -211,7 +218,7 @@
 				// 验证表单内容
 				this.$refs['uForm'].validate(valid => {
 					if (valid) {
-						console.log('验证通过');
+						// console.log('验证通过');
 						this.submitForm();
 					}
 				});
@@ -224,11 +231,17 @@
 					// log(data)
 					addUserFun(data).then( res => {
 						this.modalShow = true;
+					}).catch( err => {
+						// log(err);
+						uni.showToast({
+							title: err,
+							icon: 'none',
+							duration: 1500    //持续时间为 1.5秒
+						})
 					})
 				} 
 				if(this.type === 'detail'){
 					const data = {isManager: this.form.isManager, roleVal: this.form.roleVal};
-					log(data, this.numberIds[0])
 					updateUserInfoFun(this.numberIds[0], data).then( res => {
 						this.isEdit = false;
 						this.$refs['uToast'].show({
@@ -239,6 +252,13 @@
 							form: JSON.parse(JSON.stringify(this.form)),
 							roleLabel: this.roleLabel
 						};
+					}).catch( err => {
+						// log(err);
+						uni.showToast({
+							title: err,
+							icon: 'none',
+							duration: 1500    //持续时间为 1.5秒
+						})
 					})
 				}
 			},
@@ -295,6 +315,13 @@
 						form: JSON.parse(JSON.stringify(this.form)),
 						roleLabel: this.roleLabel
 					};
+				}).catch( err => {
+					// log(err);
+					uni.showToast({
+						title: err,
+						icon: 'none',
+						duration: 1500    //持续时间为 1.5秒
+					})
 				})
 			}
 			

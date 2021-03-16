@@ -69,6 +69,13 @@
 					}
 					// log(this.dataList)
 					 // console.log(res.data)
+				}).catch( err => {
+					// log(err);
+					uni.showToast({
+						title: err,
+						icon: 'none',
+						duration: 1500    //持续时间为 1.5秒
+					})
 				})
 			},
 			changeKeywordFun(newVal) {
@@ -81,6 +88,13 @@
 						type: 'success',
 					})
 					this.initData(1);
+				}).catch( err => {
+					// log(err);
+					uni.showToast({
+						title: err,
+						icon: 'none',
+						duration: 1500    //持续时间为 1.5秒
+					})
 				})
 			},
 			// 改变数据行操作栏的显示状态

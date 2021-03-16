@@ -119,7 +119,7 @@
 		methods: {
 			
 			deadlineOfApply(e) {
-				console.log(e)
+				// console.log(e)
 				this.deadlineDate = e.result;
 			},
 			
@@ -128,7 +128,7 @@
 				const createUser = '超级管理员'; //...
 				const deadlineDate = new calendarComputer(this.deadlineDate).stringToDate()
 				const formData = {...this.form, deadlineDate, curStageNum, currentInsti: this.currentInsti, createTime: new Date(), createUser}
-				console.log(formData)
+				// console.log(formData)
 				addCompFun(formData).then( data => {
 					
 					this.$refs['uToast'].show({
@@ -159,6 +159,13 @@
 						});
 					}, 500)
 						
+				}).catch( err => {
+					// log(err);
+					uni.showToast({
+						title: err,
+						icon: 'none',
+						duration: 1500    //持续时间为 1.5秒
+					})
 				})
 			},
 			
@@ -166,7 +173,7 @@
 				// 验证表单内容
 				this.$refs['uForm'].validate(valid => {
 					if (valid) {
-						console.log('验证通过');
+						// console.log('验证通过');
 						
 						// 提示未设置报名截止日期
 						if(!this.deadlineDate && this.radio === '报名中') {

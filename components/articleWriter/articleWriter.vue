@@ -20,7 +20,7 @@
 		},
 		methods: {
 			editOk(e) {
-				console.log('ok', e.delta)
+				// console.log('ok', e.delta)
 				const html = JSON.stringify(e.delta)
 				uni.navigateTo({
 					url: './articleReader?html=' + encodeURIComponent(html)

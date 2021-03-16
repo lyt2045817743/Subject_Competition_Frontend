@@ -69,10 +69,10 @@
 		},
 		methods: {
 			searchCompetition(value) {
-				log(value)
+				// log(value)
 			},
 			confirmCate(value) {
-				log(value)
+				// log(value)
 				this.cateObj = value[0];
 				this.subCateObj = value[1];
 			},
@@ -104,6 +104,13 @@
 						this.status = 'nomore'
 					}
 					 // console.log(res.data)
+				}).catch( err => {
+					// log(err);
+					uni.showToast({
+						title: err,
+						icon: 'none',
+						duration: 1500    //持续时间为 1.5秒
+					})
 				})
 			}
 			

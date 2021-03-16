@@ -8,13 +8,14 @@
 		</view>
 		<view class="personal-info__form">
 			<u-input v-model="numberId" placeholder="请输入学号/教工号/专家账号" type="text" :border="true"/>
-			<u-input v-model="password" placeholder="请输入密码" type="password"  :border="true"/>
+			<u-input v-model="password" :password-icon="false" placeholder="请输入密码" type="password"  :border="true"/>
 			<u-button type="primary" @click="loginFinish()">登录</u-button>
 		</view>
 	</view>
 </template>
 
 <script>
+	import { mySetStorage, myGetStorage } from '../../utils/cacheStorage.js'
 	import { logoUrl } from '../../config/base.js'
 	import { loginFun } from '../../api/user.js'
 	export default {
@@ -26,13 +27,27 @@
 			}
 		},
 		onLoad() {
-
+			// 如果登录不超过12小时，则不用登录
+			if(myGetStorage('token')) {
+				uni.switchTab({
+					url:'../competition/index'
+				})
+			}
 		},
 		methods: {
 			loginFinish() {
 				loginFun({numberId: this.numberId, password: this.password}).then( res => {
+					const { token } = res.data;
+					mySetStorage('token', token);
 					uni.switchTab({
 						url:'../competition/index'
+					})
+				}).catch( err => {
+					// log(err);
+					uni.showToast({
+						title: err,
+						icon: 'none',
+						duration: 1500    //持续时间为 1.5秒
 					})
 				})
 			}

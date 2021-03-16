@@ -13,7 +13,7 @@
 			jinEdit
 		},
 		onLoad(e) {
-			console.log(e)
+			// console.log(e)
 			// const html = decodeURIComponent(e.html);
 			if(e) {
 				this.delta = JSON.parse(e.html)

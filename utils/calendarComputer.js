@@ -11,7 +11,7 @@ class calendarComputer{
 	}
 	
 	combatDate() {
-		console.log(this.initDate)
+		// console.log(this.initDate)
 		const m = this.initDate.getMonth() + 1;
 		const result = this.initDate.getFullYear() + '-' + m + '-' + this.initDate.getDate();
 		return result;

@@ -133,7 +133,7 @@
 				// 验证表单内容
 				this.$refs['uForm'].validate(valid => {
 					if (valid) {
-						console.log('验证通过');
+						// console.log('验证通过');
 						this.submitForm();
 					}
 				});
@@ -169,6 +169,13 @@
 								delta: 1
 							});
 						}, 500)
+					}).catch( err => {
+						// log(err);
+						uni.showToast({
+							title: err,
+							icon: 'none',
+							duration: 1500    //持续时间为 1.5秒
+						})
 					})
 				} else {
 					const data = { busAuthVals, sysAuthVals }
@@ -180,13 +187,20 @@
 							type: 'success',
 						})
 						this.initForm = JSON.parse(JSON.stringify(this.form))
+					}).catch( err => {
+						// log(err);
+						uni.showToast({
+							title: err,
+							icon: 'none',
+							duration: 1500    //持续时间为 1.5秒
+						})
 					})
 				}
 				
 			}
 		},
 		onLoad(params) {
-			log(params)
+			// log(params)
 			if(params.type === 'add') {
 				this.type = 'add';
 				this.isEdit = true;
@@ -233,8 +247,15 @@
 					this.authList = { busniess, system };
 					this.initForm = JSON.parse(JSON.stringify(this.form))
 					this.initAuthList = JSON.parse(JSON.stringify(this.authList));
-					console.log(this.authList);
+					// console.log(this.authList);
 					
+				}).catch( err => {
+					// log(err);
+					uni.showToast({
+						title: err,
+						icon: 'none',
+						duration: 1500    //持续时间为 1.5秒
+					})
 				})
 			}
 			
