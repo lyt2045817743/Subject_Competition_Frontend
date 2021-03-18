@@ -27,8 +27,15 @@
 			}
 		},
 		onLoad() {
-			// 如果登录不超过12小时，则不用登录
-			if(myGetStorage('token')) {
+			// 从缓存中读取token和user并存到全局变量中。
+			const user = myGetStorage('USER');
+			const token = myGetStorage('TOKEN');
+			if(user) {
+				getApp().globalData.user = user
+			}
+			// 如果token没过期，则不用重新登录
+			if(token) {
+				getApp().globalData.token = token
 				uni.switchTab({
 					url:'../competition/index'
 				})
@@ -37,8 +44,13 @@
 		methods: {
 			loginFinish() {
 				loginFun({numberId: this.numberId, password: this.password}).then( res => {
-					const { token } = res.data;
-					mySetStorage('token', token);
+					const { token, isManager, identityType } = res.data;
+					const user = {
+						isManager,
+						identityType
+					}
+					mySetStorage('TOKEN', token);
+					mySetStorage('USER', JSON.stringify(user));
 					uni.switchTab({
 						url:'../competition/index'
 					})
