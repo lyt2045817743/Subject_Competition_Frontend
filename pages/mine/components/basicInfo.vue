@@ -1,6 +1,6 @@
 <template>
 	<view class="myhome font-set">
-		
+		<u-avatar src="" size="large" @click="goMineSet" mode="circle"></u-avatar>
 	</view>
 </template>
 
@@ -12,7 +12,11 @@
 			}
 		},
 		methods: {
-			
+			goMineSet() {
+				uni.navigateTo({
+					url: '/home/pages/mineSet'
+				})
+			}
 		}
 	}
 </script>
@@ -23,5 +27,6 @@
 		height: 350upx; 
 		display: flex; 
 		align-items: center;
+		padding: 30upx;
 	}
 </style>

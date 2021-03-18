@@ -15,7 +15,8 @@ export function request(url, options) {
 	return new Promise((resolve, reject) => {
 		if(url !== '/api/user/login') {
 			// 获取放入缓存的字段token
-			const token = myGetStorage('token');
+			const token = getApp().globalData.token;
+			// console.log(token)
 			if (token) { // 如果存在token 配置请求头
 				 options.header = {
 				   'Authorization' : 'Bearer ' + token

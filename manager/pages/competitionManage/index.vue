@@ -1,9 +1,11 @@
 <template>
 	<view class="content font-set">
 		<first-line title="赛事列表" url="./addCompetition" />
+		<!-- 搜索框 -->
 		<view class="search">
 			<u-search placeholder="请输入竞赛名称" v-model="competitionKW" @search="initData" @custom="initData"></u-search>
 		</view>
+		<!-- 赛事信息列表 -->
 		<view class="comp-list">
 			<view class="cbl-hasdata" v-if="compeInfoList.length">
 				<single-competition v-for="(item, index) in compeInfoList" :key="item.id" :cardInfo="item" :hasBtns="false"/>

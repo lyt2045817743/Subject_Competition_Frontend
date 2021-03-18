@@ -30,6 +30,7 @@
 				"navigationBarTitleText": "交流"
 			}
 		}
+        
     ],
 	"subPackages": [
 		// 管理者单独分包
@@ -125,7 +126,27 @@
             {
                 "navigationBarTitleText": "历年风采"
             } 
-        }]
+		},{
+				"path" : "pages/compDetail",
+				"style" :                                                                                    
+			{
+				"navigationBarTitleText": "赛事详情",
+				"enablePullDownRefresh": false
+			}
+			}
+		]
+	},{
+		"root": "home",
+		"pages": [
+			{
+			    "path" : "pages/mineSet",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "个人资料",
+			        "enablePullDownRefresh": false
+			    }
+			}
+            ]
 	}], 
 	// "preloadRule": {
 	// 	"pagesA/list/list": {

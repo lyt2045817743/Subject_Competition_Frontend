@@ -78,9 +78,11 @@
 					})
 				})
 			},
+			
 			changeKeywordFun(newVal) {
 				this.keyword = newVal;
 			},
+			
 			delUserHandle(numberId) {
 				delUserFun(numberId).then( res => {
 					this.$refs.uToast.show({
@@ -97,6 +99,7 @@
 					})
 				})
 			},
+			
 			// 改变数据行操作栏的显示状态
 			changeDataShow(index, action = false) {
 				// 原本为'false'，再次设置为'false'会无效

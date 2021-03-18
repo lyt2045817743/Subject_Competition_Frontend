@@ -53,6 +53,7 @@
 						</u-row>
 					</view>
 				</u-swipe-action>
+				
 				<!-- 分页按钮 -->
 				<view class="page-btns">
 					<u-button class="pb-btn" :disabled="pageCount === 1" shape="circle" size="mini" @click="changePage(-1*pageCount+1)">首页</u-button>
@@ -60,6 +61,7 @@
 					<u-button class="pb-btn" :disabled="dataList.length < 5" shape="circle" size="mini" @click="changePage(1)">下一页</u-button>
 				</view>
 			</view>
+			
 			<!-- 无数据时 -->
 			<u-empty class="empty" text="暂无数据" mode="list" v-else></u-empty>
 		</view>
@@ -84,6 +86,7 @@
 				type: Array,
 				default: []
 			},
+			// 列内容的源数据
 			allCol: {
 				type: Array,
 			},
@@ -91,7 +94,7 @@
 				type: Number,
 				default: 0
 			},
-			// 唯一标识
+			// 业务唯一标识
 			keyLabel: {
 				type: String,
 				default: '_id'
@@ -107,6 +110,7 @@
 			}
 		},
 		watch: {
+			// 当子组件关键词发生变化时，更新父组件关键词。
 			keyword(val) {
 				this.$emit('changeKeyword', val);
 			}
@@ -122,7 +126,7 @@
 				showAction: false,
 				showDelConfirmModal: false,
 				colCheckboxVal: [],
-				allColSet: JSON.parse(JSON.stringify(this.allCol)),
+				allColSet: JSON.parse(JSON.stringify(this.allCol)), // 深拷贝
 				showCol: [],
 				delKeyLabel: '',
 				options: [
@@ -142,6 +146,7 @@
 			}
 		},
 		created() {
+			// 列设置已选数据初始化
 			this.showCol = this.allCol.filter( item => {
 				return item.checked;
 			})
@@ -162,10 +167,12 @@
 			},
 			
 			click(index, btnInx) {
+				// 删除操作
 				if(btnInx == 1) {
 					this.showDelConfirmModal = true;
 					this.delKeyLabel = this.dataList[index][this.keyLabel]
 				} else {
+					// 跳转到详情页
 					uni.navigateTo({
 						url: this.detailUrl+'?type=detail&'+this.keyLabel+'='+ this.dataList[index][this.keyLabel]
 					})

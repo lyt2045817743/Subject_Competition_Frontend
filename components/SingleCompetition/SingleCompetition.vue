@@ -15,27 +15,6 @@
 			</view>
 			<view :class="['deadline', cardInfo.deadline < 2 ? 'active' : '']" v-if="curStage === '报名中' && cardInfo.deadline">报名倒计时：{{cardInfo.deadline}}天</view>
 		</view>
-		<view class="sc-btns" v-if="hasBtns && showDetailBtns">
-			<u-grid :col="3">
-				<u-grid-item @click="goPage('notify')">
-					<!-- <u-badge count="9" :offset="[20, 20]"></u-badge> -->
-					<u-icon name="bell"></u-icon>
-					<view class="grid-text">赛事通知</view>
-				</u-grid-item>
-				<u-grid-item @click="goPage('download')">
-					<u-icon name="download" class=""></u-icon>
-					<view class="grid-text">附件下载</view>
-				</u-grid-item>
-				<u-grid-item @click="goPage('apply')">
-					<u-icon name="hourglass-half-fill"></u-icon>
-					<view class="grid-text">去报名</view>
-				</u-grid-item>
-				<!-- <u-grid-item @click="goPage('history')">
-					<u-icon name="clock"></u-icon>
-					<view class="grid-text">历年风采</view>
-				</u-grid-item> -->
-			</u-grid>
-		</view>
 	</view>
 </template>
 
@@ -46,19 +25,22 @@
 	export default {
 		data() {
 			return {
-				showDetailBtns: false,
+				// showDetailBtns: false,
 				curStage: '',
 				createTime: ''
 			}
 		},
 		props: {
-			hasBtns: {
-				type: Boolean,
-				default: true
-			},
+			// hasBtns: {
+			// 	type: Boolean,
+			// 	default: true
+			// },
 			cardInfo: {
 				type: Object,
 				default: {}
+			},
+			goUrl: {
+				type: String
 			}
 		},
 		watch: {
@@ -73,21 +55,13 @@
 			}
 		},
 		methods: {
-			goPage(pageName) {
-				
-				uni.navigateTo({
-					// pages/competition/
-					url: './' + pageName + '?id=' + this.cardInfo.id
-				})
-			},
 			cardClickHandle() {
-				if(this.hasBtns) {
-					this.showDetailBtns = !this.showDetailBtns
-				} else {
-					uni.navigateTo({
-						url: './competitionEdit'
-					})
-				}
+				this.cardInfo.createTime = this.createTime;
+				this.cardInfo.deadlineDate = new calendarComputer(new Date(Date.parse(this.cardInfo.deadlineDate))).combatDate()
+				const cardInfo = JSON.stringify(this.cardInfo)
+				uni.navigateTo({
+					url: this.goUrl + '?cardInfo=' + encodeURIComponent(cardInfo)
+				})
 			}
 		}
 	}
