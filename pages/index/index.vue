@@ -15,9 +15,9 @@
 </template>
 
 <script>
-	import { mySetStorage, myGetStorage } from '../../utils/cacheStorage.js'
-	import { logoUrl } from '../../config/base.js'
-	import { loginFun } from '../../api/user.js'
+	import { mySetStorage, myGetStorage } from '@/utils/cacheStorage.js'
+	import { logoUrl } from '@/config/base.js'
+	import { loginFun } from '@/api/user.js'
 	export default {
 		data() {
 			return {
@@ -51,6 +51,8 @@
 					}
 					mySetStorage('TOKEN', token);
 					mySetStorage('USER', JSON.stringify(user));
+					getApp().globalData.token = token
+					getApp().globalData.user = user
 					uni.switchTab({
 						url:'../competition/index'
 					})

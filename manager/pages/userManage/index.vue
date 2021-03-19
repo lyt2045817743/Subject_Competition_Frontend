@@ -9,9 +9,9 @@
 <script>
 	import FirstLine from '../../components/FirstLine/FirstLine.vue'
 	import ProTable from '../../components/ProTable/ProTable.vue'
-	import { queryUserListFun, delUserFun } from '../../../api/user.js'
-	import codeTranslater from '../../../utils/codeTranslater.js'
-	import { identityModel } from '../../../models/user.d.js'
+	import { queryUserListFun, delUserFun } from '@/api/user.js'
+	import codeTranslater from '@/utils/codeTranslater.js'
+	import { identityModel } from '@/models/user.d.js'
 	
 	let { log } = console
 	export default {

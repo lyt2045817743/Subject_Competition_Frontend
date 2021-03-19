@@ -9,7 +9,7 @@
 <script>
 	import FirstLine from '../../components/FirstLine/FirstLine.vue'
 	import ProTable from '../../components/ProTable/ProTable.vue'
-	import { queryRoleListFun, delRoleFun } from '../../../api/role.js'
+	import { queryRoleListFun, delRoleFun } from '@/api/role.js'
 	// import codeTranslater from '../../../utils/codeTranslater.js'
 	// import { identityModel } from '../../../models/Role.d.js'
 	

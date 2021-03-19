@@ -18,7 +18,7 @@
 </template>
 
 <script>
-	import artcleReader from '../../components/articleReader/articleReader'
+	import artcleReader from '@/components/articleReader/articleReader'
 	export default {
 		components: { artcleReader },
 		data() {

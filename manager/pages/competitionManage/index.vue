@@ -17,10 +17,10 @@
 </template>
 
 <script>
-	import SingleCompetition from '../../../components/SingleCompetition/SingleCompetition'
+	import SingleCompetition from '@/components/SingleCompetition/SingleCompetition'
 	import FirstLine from '../../components/FirstLine/FirstLine.vue'
 	// import compeInfoList from '../competition/tempData/compeInfoList.js'
-	import { queryCompListFun } from '../../../api/competition.js'
+	import { queryCompListFun } from '@/api/competition.js'
 	export default {
 		components: { SingleCompetition, FirstLine },
 		data() {

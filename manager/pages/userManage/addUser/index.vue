@@ -64,10 +64,10 @@
 </template>
 
 <script>
-	import { queryRoleListFun } from '../../../api/role.js'
-	import { addUserFun, getUserInfoFun, updateUserInfoFun } from '../../../api/user.js'
-	import { identityModel } from '../../../models/user.d.js'
-	import codeTranslater from '../../../utils/codeTranslater.js'
+	import { queryRoleListFun } from '@/api/role.js'
+	import { addUserFun, getUserInfoFun, updateUserInfoFun } from '@/api/user.js'
+	import { identityModel } from '@/models/user.d.js'
+	import codeTranslater from '@/utils/codeTranslater.js'
 	let {log} = console
 	
 	const emptyData = {

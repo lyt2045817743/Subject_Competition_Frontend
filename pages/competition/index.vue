@@ -34,8 +34,8 @@
 
 <script>
 	import categoryList from './tempData/categoryList.js'
-	import SingleCompetition from '../../components/SingleCompetition/SingleCompetition'
-	import { queryCompListFun } from '../../api/competition.js'
+	import SingleCompetition from '@/components/SingleCompetition/SingleCompetition'
+	import { queryCompListFun } from '@/api/competition.js'
 	const { log } = console;
 	export default {
 		components:{ SingleCompetition },

@@ -42,9 +42,9 @@
 
 <script>
 	let { log } = console
-	import codeTranslater from '../../../utils/codeTranslater.js'
-	import { managerShortcut } from '../../../models/shortcutAuthorize.d.js'
-	import { addRoleFun, getRoleInfoFun, updateRoleInfoFun } from '../../../api/role.js'
+	import codeTranslater from '@/utils/codeTranslater.js'
+	import { managerShortcut } from '@/models/shortcutAuthorize.d.js'
+	import { addRoleFun, getRoleInfoFun, updateRoleInfoFun } from '@/api/role.js'
 	export default {
 		data() {
 			return {

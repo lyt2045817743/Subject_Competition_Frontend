@@ -43,7 +43,7 @@
                 "enablePullDownRefresh": false
             }
         },{
-            "path" : "pages/userManage/addUser",
+            "path" : "pages/userManage/addUser/index",
             "style" : 
             {
                 "navigationBarTitleText": "",
@@ -65,14 +65,14 @@
 		        "enablePullDownRefresh": false
 		    }
 		},{
-		    "path" : "pages/roleManage/addRole",
+		    "path" : "pages/roleManage/addRole/index",
 		    "style" :                                                                                    
 		    {
 		        "navigationBarTitleText": "新增角色",
 		        "enablePullDownRefresh": false
 		    }
 		},{
-            "path" : "pages/competitionManage/addCompetition",
+            "path" : "pages/competitionManage/addCompetition/index",
             "style" : 
             {
                 "navigationBarTitleText": "新增赛事",
@@ -80,7 +80,7 @@
             }
         }
         ,{
-            "path" : "pages/competitionManage/competitionEdit",
+            "path" : "pages/competitionManage/competitionEdit/index",
             "style" : {
                 "navigationBarTitleText": "赛事编辑",
                 "enablePullDownRefresh": false
@@ -102,32 +102,32 @@
 		"root": "competition",
 		"pages": [
 		{
-		    "path" : "pages/download",
+		    "path" : "pages/download/index",
 		    "style" :
 		    {
 		        "navigationBarTitleText": "附件下载"
 		    }
 		},
 		{
-		    "path" : "pages/notify",
+		    "path" : "pages/notify/index",
 		    "style" :{
 		        "navigationBarTitleText": "赛事通知"
 		    }
 		},
 		{
-            "path" : "pages/apply",
+            "path" : "pages/apply/index",
             "style" :
             {
                 "navigationBarTitleText": "去报名"
             }
         },{
-            "path" : "pages/history",
+            "path" : "pages/history/index",
             "style" :
             {
                 "navigationBarTitleText": "历年风采"
             } 
 		},{
-				"path" : "pages/compDetail",
+				"path" : "pages/compDetail/index",
 				"style" :                                                                                    
 			{
 				"navigationBarTitleText": "赛事详情",
@@ -139,7 +139,7 @@
 		"root": "home",
 		"pages": [
 			{
-			    "path" : "pages/mineSet",
+			    "path" : "pages/mineSet/index",
 			    "style" :                                                                                    
 			    {
 			        "navigationBarTitleText": "个人资料",

@@ -38,10 +38,10 @@
 </template>
 
 <script>
-	import { comStageModel } from '../../../models/competition.d.js'
-	import codeTranslater from '../../../utils/codeTranslater'
-	import calendarComputer from '../../../utils/calendarComputer.js'
-	import { addCompFun } from '../../../api/competition.js'
+	import { comStageModel } from '@/models/competition.d.js'
+	import codeTranslater from '@/utils/codeTranslater'
+	import calendarComputer from '@/utils/calendarComputer.js'
+	import { addCompFun } from '@/api/competition.js'
 	export default {
 		data() {
 			return {
