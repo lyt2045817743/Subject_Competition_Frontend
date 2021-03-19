@@ -1,5 +1,5 @@
 <template>
-	<view class="firstline">
+	<view class="firstline font-set">
 		<text class="title">{{title}}</text>
 		<view class="newbtn" @click="addComp">
 			<u-icon name="plus-circle" />新建

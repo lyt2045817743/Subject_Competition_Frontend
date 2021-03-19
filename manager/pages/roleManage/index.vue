@@ -1,7 +1,7 @@
 <template>
 	<view class="content font-set">
-		<first-line title="角色列表" url="./addRole" />
-		<pro-table placeholder="请输入角色名" detailUrl="./addRole" @changeShow="changeDataShow" @delHandle="delRoleHandle" @update="initData" @changeKeyword="changeKeywordFun" :pageCount="pageCount" :dataList="dataList" :allCol="allCol" keyLabel="roleName" />
+		<first-line title="角色列表" url="./addRole/index" />
+		<pro-table placeholder="请输入角色名" detailUrl="./addRole/index" @changeShow="changeDataShow" @delHandle="delRoleHandle" @update="initData" @changeKeyword="changeKeywordFun" :pageCount="pageCount" :dataList="dataList" :allCol="allCol" keyLabel="roleName" />
 		<u-toast ref="uToast" />
 	</view>
 </template>

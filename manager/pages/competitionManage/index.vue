@@ -1,6 +1,6 @@
 <template>
 	<view class="content font-set">
-		<first-line title="赛事列表" url="./addCompetition" />
+		<first-line title="赛事列表" url="./addCompetition/index" />
 		<!-- 搜索框 -->
 		<view class="search">
 			<u-search placeholder="请输入竞赛名称" v-model="competitionKW" @search="initData" @custom="initData"></u-search>

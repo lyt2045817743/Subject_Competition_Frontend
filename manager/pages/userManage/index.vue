@@ -1,7 +1,7 @@
 <template>
 	<view class="content font-set">
-		<first-line title="用户列表" url="./addUser" />
-		<pro-table placeholder="请输入用户名" detailUrl="./addUser" @changeShow="changeDataShow" @delHandle="delUserHandle" @update="initData" @changeKeyword="changeKeywordFun" :pageCount="pageCount" :dataList="dataList" :allCol="allCol" keyLabel="numberId" />
+		<first-line title="用户列表" url="./addUser/index" />
+		<pro-table placeholder="请输入用户名" detailUrl="./addUser/index" @changeShow="changeDataShow" @delHandle="delUserHandle" @update="initData" @changeKeyword="changeKeywordFun" :pageCount="pageCount" :dataList="dataList" :allCol="allCol" keyLabel="numberId" />
 		<u-toast ref="uToast" />
 	</view>
 </template>

@@ -1,5 +1,5 @@
 <template>
-	<view class="content">
+	<view class="content font-set">
 		<u-form :model="form" ref="uForm" label-width="200">
 			<u-form-item label="添加方式" v-if="type === 'add'">
 				<u-radio-group v-model="addType">
@@ -188,7 +188,7 @@
 							value: item._id
 						}
 					});
-					log(this.roleList)
+					// log(this.roleList)
 				}).catch( err => {
 					// log(err);
 					uni.showToast({

@@ -14,7 +14,7 @@
 		methods: {
 			goMineSet() {
 				uni.navigateTo({
-					url: '/home/pages/mineSet'
+					url: '/home/pages/mineSet/index'
 				})
 			}
 		}

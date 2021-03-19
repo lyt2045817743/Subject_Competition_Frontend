@@ -20,7 +20,7 @@
 			<u-select v-model="showCategoryList" mode="mutil-column-auto" :list="categoryList" @confirm="confirmCate"></u-select>
 			<view class="cb-list">
 				<view class="cbl-hasdata" v-if="compeInfoList.length">
-					<single-competition v-for="(item) in compeInfoList" :key="item.id" :cardInfo="item" goUrl="/competition/pages/compDetail"/>
+					<single-competition v-for="(item) in compeInfoList" :key="item.id" :cardInfo="item" goUrl="/competition/pages/compDetail/index"/>
 					<u-loadmore :status="status" margin-top="30" @loadmore="initData()"/>
 				</view>
 				<u-empty class="empty" text="暂无数据" mode="list" v-else></u-empty>
