@@ -1,5 +1,5 @@
 <template>
-	<view class="font-set">
+	<view class="font-set content">
 		<view class="compInfo-box">
 			<view class="cb-firstline">
 				<text class="cbf-name">{{cardInfo.name}}</text>
@@ -39,14 +39,14 @@
 		onLoad(detail) {
 			const cardInfo = decodeURIComponent(detail.cardInfo);
 			this.cardInfo = JSON.parse(cardInfo)
-			log(this.cardInfo)
+			// log(this.cardInfo)
 		},
 		methods: {
 			
 			goPage(pageName) {
 				uni.navigateTo({
 					// pages/competition/
-					url: './' + pageName + '?id=' + this.cardInfo.id
+					url: '../' + pageName + '/index?id=' + this.cardInfo.id
 				})
 			},
 		}
@@ -56,7 +56,6 @@
 <style lang="scss" scoped>
 	.compInfo-box {
 		background-color: #cffcfc;
-		margin-bottom: 30upx;
 		padding: 35upx;
 		box-shadow: 0px 1px 0px 0px #f2f2f2;
 		.cb-firstline {
@@ -72,7 +71,7 @@
 		}
 	}
 	.compInfo-btns {
-		margin: 0 25upx;
-		padding: 25upx;
+		// margin: 0 25upx;
+		padding-top: 25upx;
 	}
 </style>

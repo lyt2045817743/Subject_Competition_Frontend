@@ -87,16 +87,15 @@
             }
         }]
 	}, 
-	// {
-	// 	"root": "pages/communication",
-	// 	"pages": [{
-	// 		"path": "index",
-	// 		"style": {
-	// 			"navigationBarTitleText": "交流"
-	// 		}
-	// 	}
-	// 	]
-	// },
+	{
+		"root": "communication",
+		"pages": [{
+			"path": "pages/forum/index",
+			"style": {
+				"navigationBarTitleText": "论坛"
+			}
+		}]
+	},
 	// 赛事详情单独分包
 	{
 		"root": "competition",
@@ -134,7 +133,16 @@
 				"enablePullDownRefresh": false
 			}
 			}
-		]
+		    ,{
+                    "path" : "pages/apply/createTeam/index",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "编辑团队",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
+            ]
 	},{
 		"root": "home",
 		"pages": [
