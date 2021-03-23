@@ -138,6 +138,7 @@
 					}
 				});
 			},
+			
 			submitForm() {
 				
 				const busTrans = new codeTranslater(managerShortcut.business)

@@ -10,6 +10,12 @@
 			}
 		},
 		{
+			"path": "pages/mine/completeInfo/index",
+			"style": {
+				"navigationBarTitleText": "完善个人信息"
+			}
+		},
+		{
 			"path": "pages/mine/index",
 			"style": {
 				"navigationBarTitleText": "我的",
